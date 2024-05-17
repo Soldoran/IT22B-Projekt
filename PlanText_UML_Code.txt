@@ -1,0 +1,54 @@
+@startuml
+!define RECTANGLE class
+skinparam class {
+    BackgroundColor PaleGreen
+    ArrowColor SeaGreen
+}
+
+RECTANGLE User {
+    - id: int
+    - username: string
+    - password: string
+    + login(): bool
+    + logout(): void
+}
+
+RECTANGLE ToDoItem {
+    - id: int
+    - title: string
+    - description: string
+    - dueDate: DateTime
+    - isCompleted: bool
+    + markAsCompleted(): void
+}
+
+RECTANGLE ToDoList {
+    - id: int
+    - name: string
+    + addItem(item: ToDoItem): void
+    + removeItem(item: ToDoItem): void
+    + getItems(): List<ToDoItem>
+}
+
+RECTANGLE AuthenticationService {
+    + login(username: string, password: string): bool
+    + logout(): void
+    + register(username: string, password: string): bool
+}
+
+RECTANGLE MSSQLDatabase {
+    + saveData(data: object): void
+    + retrieveData(query: string): object
+    + updateData(data: object): void
+    + deleteData(data: object): void
+}
+
+User "1" --> "1..*" ToDoList : owns >
+ToDoList "1" --> "0..*" ToDoItem : contains >
+User "1" --> "1" AuthenticationService : uses >
+ToDoList "1" --> "1" MSSQLDatabase : stores >
+ToDoItem "1" --> "1" MSSQLDatabase : stores >
+User "1" --> "1" MSSQLDatabase : stores >
+AuthenticationService "1" --> "1" MSSQLDatabase : uses >
+
+@enduml
