@@ -25,7 +25,7 @@ Nutzer => Datenbank
 | git push | Pushed den erstellten Commit in den aktuellen Branch des Repositories |
 | git checkout [Branchname] | Wechselt den Branch auf den gewünschten |
 | git branch [Branchname] | Erstellt einen neuen Branch, ausgehend vom aktuellen |
-| git merge [Branchname] | Merged den angegebenen Branch in den Parent |
+| git merge [Branchname] | Merged Änderungen des angegebenen Branches in den eigenen |
 | git cherry-pick [Commit-ID] | Kopiert die Änderungen des angegebenen Commits in den eigenen Branch |
 | git diff --cached | Kann vor dem 'git push'-Befehl ausgeführt werden, um sich die Änderungen noch einmal anzuschauen |
 | git pull [Origin-Branch] [Branchname] | Zieht die Änderungen eines anderen Branchen in den eigenen |
