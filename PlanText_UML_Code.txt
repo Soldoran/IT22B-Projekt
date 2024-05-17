@@ -17,8 +17,11 @@ RECTANGLE ToDoItem {
     - id: int
     - title: string
     - description: string
+    - creationDate: DateTime
     - dueDate: DateTime
-    - isCompleted: bool
+    - state: enum
+    - category: string
+    - owner: string
     + markAsCompleted(): void
 }
 
