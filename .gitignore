@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 # Ignore temporary files
 *.*~
 
 #Just to be save
 *.txt~
 *.txt*~
-
->>>>>>> 3ed06934f69aa8788b35259b4ff57d5556336eb7
