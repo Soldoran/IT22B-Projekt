@@ -33,6 +33,15 @@ RECTANGLE ToDoList {
     + getItems(): List<ToDoItem>
 }
 
+RECTANGLE UsersToDoLists {
+    - id: int
+    - name: string
+    + List: ToDoList
+    + addToDoList(listID: int): void
+    + removeToDoList(listID: int): void
+    + getLists(): List<ToDoList>
+}
+
 RECTANGLE AuthenticationService {
     + login(username: string, password: string): bool
     + logout(): void
@@ -47,6 +56,8 @@ RECTANGLE MSSQLDatabase {
 }
 
 User "1" --> "1..*" ToDoList : owns >
+User "1" --> "0..*" UsersToDoLists : owns >
+UsersToDoLists "1" --> "1..*" ToDoList : stores >
 ToDoList "1" --> "0..*" ToDoItem : contains >
 User "1" --> "1" AuthenticationService : uses >
 ToDoList "1" --> "1" MSSQLDatabase : stores >
