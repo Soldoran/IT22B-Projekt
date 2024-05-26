@@ -8,7 +8,8 @@
 	\input{meineTexte}
 %--------------------------------------------------------
 % Configurations
-	\documentclass[ngerman,11pt,a4paper,titlepage]{article}
+	\documentclass[12pt]{article} % Schriftgrad 12	
+	
 	
 	% Titelseite
 	\title{\myTitle}
@@ -28,7 +29,11 @@
 	\usepackage{amsmath}
 	\usepackage{amssymb}
 	\usepackage{caption}
-
+	\usepackage[a4paper, left=2.5cm, right=2.5cm]{geometry} % Seitenränder 2.5cm
+	\usepackage{setspace} % Zeilenabstand anpassen
+	
+	\onehalfspacing % Zeilenabstand 1,5-fach
+	
 % Header & Footer Einstellungen
 	\setlength{\headheight}{14pt}	% Höhe des Headers festlegen
 	\setlength{\headsep}{20pt}		% Abstand zwischen Header und Text festlegen
@@ -52,10 +57,11 @@
 
 \begin{document}
 	\maketitle % Wird verwendet um den Titel + Author anzuzeigen
-	\tableofcontents % Erstellt automatisch ein Inhaltverzeichnis aus den (sub)sections
+	\newpage
 	\clearpage
-	
-% --------------------------------
+	\tableofcontents
+	\newpage
+	\clearpage
 	% Anfang Dokumentation
 	\section{Einleitung}
 	\label{sec:einleitung}
@@ -99,7 +105,9 @@
 	\label{subsec:projektphasen}
 	\projektphasenText
 	\neuerAbsatz
-	\begin{tabular}[h]{l|r}
+	\begin{center}
+		\begin{tabular}[h]{|l|r|}
+		\hline
 		Projektphase & Geplante Zeit \\
 		\hline
 		Gruppen- und Projektfindung & 1.5 Stunden \\
@@ -113,8 +121,10 @@
 		Abschließen der Dokumentation und Vorbereitung der Präsentation & 1.5 Stunden \\
 		\hline
 		Gesamt & 9.0 Stunden \\
-		\label{tab:tabelle1}
-	\end{tabular}
+		\hline
+		\end{tabular}
+	\end{center}
+	\label{tab:tabelle1}
 	
 	\subsection{Ressourcenplanung}
 	\label{subsec:ressourcenplanung}
@@ -145,14 +155,18 @@
 	\label{subsubsec:projektkosten}
 	\projektkostenText
 	\neuerAbsatz
+	\begin{center}
 	\begin{tabular}{|c|c|c|c|}
-		Vorgang & Zeit (h) & Kosten / Stunde & Kosten \\
-		\hline
-		Entwicklung (pro Person) & 9 & 6,48 € + 8 € = 14,48 € & 130,32 € \\
-		\hline
-		Gesamt & 27 & 43,44 € & 390,96 €
-		\label{tab:tabelle2}
+	\hline
+	Vorgang & Zeit (h) & Kosten / Stunde & Kosten \\
+	\hline
+	Entwicklung (pro Person) & 9 & 6,48 € + 8 € = 14,48 € & 130,32 € \\
+	\hline
+	Gesamt & 27 & 43,44 € & 390,96 € \\
+	\hline
 	\end{tabular}
+	\end{center}
+	\label{tab:tabelle2}
 	
 	\subsubsection{Amortisationsrechnung}
 	\label{subsubsec:amortisationsrechnung}
@@ -267,7 +281,7 @@
 	\label{sec
 	}
 	\quellenverzeichnisText
-%\pagebreak
+\pagebreak
 	
 	\section{Anhang}
 	\label{sec
