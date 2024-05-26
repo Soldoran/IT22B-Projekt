@@ -1,0 +1,291 @@
+%--------------------------------------------------------
+	% Variablen
+	\newcommand{\myTitle}{To-Do-App in Blazor}
+	\newcommand{\myAuthor}{Leo- Jonathan - Sebastian}
+	\newcommand{\myLineThickness}{0.4pt}
+	
+	% Externe Variablen Einbinden
+	\input{meineTexte}
+%--------------------------------------------------------
+% Configurations
+	\documentclass[ngerman,11pt,a4paper,titlepage]{article}
+	
+	% Titelseite
+	\title{\myTitle}
+	\author{\myAuthor}
+
+% Packages
+	\usepackage[T1]{fontenc}
+	\usepackage{graphicx}
+	\usepackage{amssymb}
+	\usepackage{amsthm}
+	\usepackage{xcolor}
+	\usepackage{nameref}
+	\usepackage{babel}
+	\usepackage{fancyhdr}
+	%\usepackage{hyperref}
+	\usepackage{lipsum}
+	\usepackage{amsmath}
+	\usepackage{amssymb}
+	\usepackage{caption}
+
+% Header & Footer Einstellungen
+	\setlength{\headheight}{14pt}	% Höhe des Headers festlegen
+	\setlength{\headsep}{20pt}		% Abstand zwischen Header und Text festlegen
+	
+	\pagestyle{fancy}
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{\myTitle}
+	\fancyhead[R]{}
+	
+	% Text Footer-Sektionen
+	\fancyfoot[L]{}
+	\fancyfoot[C]{\thepage}
+	\fancyfoot[R]{}
+	
+	% Die Trennlinien bei Header und Footer
+	\renewcommand{\headrulewidth}{\myLineThickness}
+	\renewcommand{\footrulewidth}{\myLineThickness}
+%--------------------------------------------------------
+
+
+\begin{document}
+	\maketitle % Wird verwendet um den Titel + Author anzuzeigen
+	\tableofcontents % Erstellt automatisch ein Inhaltverzeichnis aus den (sub)sections
+	\clearpage
+	
+% --------------------------------
+	% Anfang Dokumentation
+	\section{Einleitung}
+	\label{sec:einleitung}
+	\einleitungText
+	
+	\subsection{Projektumfeld}
+	\label{subsec:projektumfeld}
+	\projektumfeldText
+	
+	\subsection{Projektziel}
+	\label{subsec:projektziel}
+	\projektzielText
+	
+	\subsection{Projektbegründung}
+	\label{subsec:projektbegruendung}
+	\projektbegruendungText
+	
+	\subsection{Projektschnittstellen}
+	\label{subsec:projektschnittstellen}
+	\projektschnittstellenText
+	
+	\subsubsection{Personelle Schnittstellen}
+	\label{subsubsec:personelleschnittstellen}
+	\personelleSchnittstellenText
+	
+	\subsubsection{Technische Schnittstellen}
+	\label{subsubsec:technischeschnittstellen}
+	\technischeSchnittstellenText
+	
+	% Dieser Abschnitt macht meiner Meinung keinen Sinn in dieser Doku (- Sebastian)
+	%\subsection{Projektabgrenzung}
+	%\label{subsec:projektabgrenzung}
+	%\projektabgrenzungText
+	\pagebreak
+	
+	\section{Projektplanung}
+	\label{sec:projektplanung}
+	\projektplanungText
+	
+	\subsection{Projektphasen}
+	\label{subsec:projektphasen}
+	\projektphasenText
+	\neuerAbsatz
+	\begin{tabular}[h]{l|r}
+		Projektphase & Geplante Zeit \\
+		\hline
+		Gruppen- und Projektfindung & 1.5 Stunden \\
+		\hline
+		Ausarbeitung des Grobkonzeptes & 1.5 Stunden \\
+		\hline
+		Ausarbeitung der Umsetzungsphase & 1.5 Stunden \\
+		\hline
+		Durchführen des Umsetzungsphase & 3.0 Stunden \\
+		\hline
+		Abschließen der Dokumentation und Vorbereitung der Präsentation & 1.5 Stunden \\
+		\hline
+		Gesamt & 9.0 Stunden \\
+		\label{tab:tabelle1}
+	\end{tabular}
+	
+	\subsection{Ressourcenplanung}
+	\label{subsec:ressourcenplanung}
+	\ressourcenplanungText
+	
+	\subsection{Entwicklungsprozess}
+	\label{subsec:entwicklungsprozess}
+	\entwicklungsprozessText
+	\pagebreak
+	
+	\section{Analysephase}
+	\label{sec:analysephase}
+	\analysephaseText
+	
+	\subsection{Ist-Analyse}
+	\label{subsec:istanalyse}
+	\istanalyseText
+	
+	\subsection{Wirtschaftlichkeitsanalyse}
+	\label{subsec:wirtschaftlichkeitsanalyse}
+	\wirtschaftlichkeitsanalyseText
+	
+	\subsubsection{Make or Buy-Entscheidung}
+	\label{subsubsec:makeorbuy}
+	\makeorbuyText
+	
+	\subsubsection{Projektkosten}
+	\label{subsubsec:projektkosten}
+	\projektkostenText
+	\neuerAbsatz
+	\begin{tabular}{|c|c|c|c|}
+		Vorgang & Zeit (h) & Kosten / Stunde & Kosten \\
+		\hline
+		Entwicklung (pro Person) & 9 & 6,48 € + 8 € = 14,48 € & 130,32 € \\
+		\hline
+		Gesamt & 27 & 43,44 € & 390,96 €
+		\label{tab:tabelle2}
+	\end{tabular}
+	
+	\subsubsection{Amortisationsrechnung}
+	\label{subsubsec:amortisationsrechnung}
+	\amortisationsrechnungText
+	
+	\subsection{Qualitätsanforderung}
+	\label{subsec:qualitaetsanforderung}
+	\qualitaetsanforderungText
+	
+	% Entfällt, keine Idee was man hier schreiben könnte
+	%\subsection{Nicht-finanzielle Vorteile}
+	%\label{subsec:nichtfinanzielleVorteile}
+	%\nichtfinanzielleVorteileText
+	\pagebreak
+	
+	\section{Entwurfsphase}
+	\label{sec:entwurfsphase}
+	\entwurfsphaseText
+	
+	\subsection{Zielplattform}
+	\label{subsec:zielplattform}
+	\zielplattformText
+	
+	\subsubsection{Browser}
+	\label{subsubsec:plattform}
+	\plattformText
+	
+	\subsubsection{Entscheidung der Programmiersprache}
+	\label{subsubsec:programmiersprache}
+	\programmierspracheText
+	
+	\subsubsection{Umsetzung der grafischen Oberfläche}
+	\label{subsubsec:grafischeoberflaeche}
+	\grafischeOberflaecheText
+	
+	\subsection{Architekturdesign}
+	\label{subsec:architekturdesign}
+	\architekturdesignText
+	
+	\subsubsection{Entscheidung der Bibliotheken}
+	\label{subsubsec:bibliotheken}
+	\bibliothekenText
+	
+	\subsubsection{Strukturelles Design}
+	\label{subsubsec:strukturellesdesign}
+	\strukturellesDesignText
+	
+	\subsubsection{Funktionales Design}
+	\label{subsubsec:funktionalesdesign}
+	\funktionalesDesignText
+	
+	\subsection{Entwurf der Benutzeroberfläche}
+	\label{subsec:entwurfbenuzteroberflaeche}
+	\entwurfbenuzteroberflaecheText
+	
+	\subsection{Maßnahmen zur Qualitätssicherung}
+	\label{subsec:massnahmenqualitaetssicherung}
+	\massnahmenQualitaetssicherungText
+	\pagebreak
+		
+	\section{Implementierungsphase}
+	\label{sec:implementierungsphase}
+	\implementierungproviderText
+	
+		\subsection{Implementierung der Laufzeit für Transfer-Objekte}
+		\label{subsec:implementierunglaufzeittransfer}
+		\implementierunglaufzeittransferText
+		
+		\subsection{Implementierung der Laufzeit für den Trigger}
+		\label{subsec:implementierunglaufzeittrigger}
+		\implementierunglaufzeittriggerText
+		
+		\subsection{Implementierung von Unittests}
+		\label{subsec:implementierungunittests}
+		\implementierungunittestsText
+		
+		\subsection{Implementierung der Benutzeroberfläche}
+		\label{subsec:implementierungbenuzteroberflaeche}
+		\implementierungbenuzteroberflaecheText
+	\pagebreak
+	
+	\section{Abnahmephase}
+	\label{sec
+	}
+	\abnahmephaseText
+	\pagebreak
+	
+	\section{Dokumentation}
+	\label{sec
+	}
+	\dokumentationText
+	\pagebreak
+	
+	\section{Fazit}
+	\label{sec
+	}
+	\fazitText
+		\subsection{Soll-/Ist-Vergleich}
+		\label{subsec:sollistvergleich}
+		\sollistvergleichText
+		
+		\subsection{Reflexion}
+		\label{subsec:reflexion}
+		\reflexionText
+		
+		\subsection{Ausblick}
+		\label{subsec:ausblick}
+		\ausblickText
+	\pagebreak
+	
+\section{Quellenverzeichnis}
+\label{sec
+}
+\quellenverzeichnisText
+\pagebreak
+
+\section{Anhang}
+\label{sec
+}
+\anhangText
+		\subsection{A1}
+		\label{subsec:a1}
+		\anhangEins
+		
+		\subsection{A2}
+		\label{subsec:a2}
+		\anhangZwei
+		
+		\subsection{A3}
+		\label{subsec:a3}
+		\anhangDrei
+	\pagebreak
+	
+	% Ende Dokumentation
+% ---------------------------------
+\end{document}
