@@ -6,14 +6,23 @@ Lernfeld 8 Projekt
 Verwaltung von To-Dos. Getrennt in Privat und Gewerblich. Nutzerverwaltung. "Ticket". An diesem sind Tasks. Datum.
 Nutzer => Datenbank
 
+### Objekte
+  * User
+  * UsersToDoLists
+  * ToDoList
+  * ToDoItem
+  * AuthenticationService
+  * MsSqlDatabase
+
 
 ## Gruppe
 * Leo
 * Jonathan
 * Sebastian
 
-## Sprache
+## Verwendete Sprachen
 * C#
+* TSQL
 
 ## Git in der Eingabeaufforderung
 
