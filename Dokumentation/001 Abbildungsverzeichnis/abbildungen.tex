@@ -1,0 +1,34 @@
+% Sicherstellen dass im Hauptodkument folgendes Packet enthalten ist:
+%\usepackage{graphicx}
+
+% Das Abbildungsverzeichnis wird im Hauptdokument durch den Befehl \listoffigures erstellt. Dabei sind die Captions an den figures wichtig!
+
+% Wie man eine 'figure' erstellt:
+% \begin{figure}
+	% \includegraphics{Dateiname.Dateiende} <- Optional
+	% \caption{Abbildungsbeschriftung}
+% \end{figure}
+
+% Für Einträge im Abbildungsverzeichnis, die sich von der Abbildungsbeschriftung unterscheiden sollen, gibt es für \caption ein alternatives Argument:
+
+% \begin{figure}
+% 	...
+% 	\caption[Eintrag im Abbildungsverzeichnis]{Abbildungsbeschriftung}
+% \end{figure}
+
+% Mit dem Befehl "\addtocontents" lassen sich auch Einträge manuell hinzufügen. Dies gilt auch für Tabellen. Hier wird dann analog statt der figure-Umgebung die table-Umgebung verwendet.
+
+% Source: https://www.heise.de/tipps-tricks/LaTeX-Abbildungsverzeichnis-automatisch-erstellen-7261837.html
+
+% -------------------------------------------------------
+% Template Figure
+\newcommand{\abbildung}{
+	\begin{figure}
+		\includegraphics{../img/figure001.png}
+		\caption{Abbildung 1: Testimage}
+	\end{figure}
+}
+
+% -------------------------------------------------------
+
+% -------------------------------------------------------
