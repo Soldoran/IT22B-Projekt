@@ -1,0 +1,47 @@
+﻿@page "/register"
+@using ToDoApp.Klassen
+@inject ApplicationDbContext DbContext
+@*Hilfreiches Tutorial für automatische Datenbank + Tabellen erstellen via Visual Studio anhand der Klassen und ihren Parametern = https://www.youtube.com/watch?v=xtDmYMODO-M*@
+<h3>Register</h3>
+
+<EditForm Model="@registerModel" OnValidSubmit="HandleRegister">
+    <label>Name</label>
+    <InputText @bind-Value="registerModel.Username" placeholder="Username" />
+    <br />
+    <br />
+    <label>Passwort</label>
+    <InputText @bind-Value="registerModel.Password" type="password" placeholder="Password" />
+    <br />
+    <br />
+    <button type="submit" onclick="@HandleRegister()" class="m-3 p-3 col-1">Register</button>
+</EditForm>
+
+<p>@loginMessage</p>
+
+@code {
+    private Userclass registerModel = new Userclass();
+    private string? loginMessage;
+
+    private async Task HandleRegister()
+    {
+        Userclass? registeredUser = DbContext.Userclasses.Where(u => u.Username == registerModel.Username).FirstOrDefault();
+
+        if (registeredUser == null)
+        {
+            DbContext.Userclasses.Add(registerModel);
+            loginMessage = "User created!";
+            await DbContext.SaveChangesAsync();
+            registerModel = new Userclass();
+        }
+        else
+        {
+            loginMessage = $"There is already a User with the Name  \"{registerModel.Username}\"";
+        }
+    }
+
+    public class LoginModel
+    {
+        public string? Username { get; set; }
+        public string? Password { get; set; }
+    }
+}
