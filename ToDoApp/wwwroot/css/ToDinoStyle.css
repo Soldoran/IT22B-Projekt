@@ -1,0 +1,86 @@
+﻿/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Container for the entire board */
+.board {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 20px !important;
+    padding: 20px !important;
+}
+
+/* Column styles */
+.column {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 10px !important;
+    width: 200px;
+    min-height: 400px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    min-width: fit-content;
+    overflow: scroll;
+}
+
+    .column.not-started {
+        background-color: #ffffe0; /* Light yellow */
+    }
+
+    .column.started {
+        background-color: #e0f7ff; /* Light blue */
+    }
+
+    .column.completed {
+        background-color: #e0ffe0; /* Light green */
+    }
+
+    .column.delete {
+        background-color: #ffe0e0; /* Light red */
+    }
+
+    .column h2 {
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #333;
+    }
+
+/* Task card styles */
+.task {
+    background-color: #d0e7ff; /* Light blue */
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    .task:hover {
+        background-color: #c0d7ff; /* Slightly darker blue on hover */
+    }
+
+    .task.task0 {
+        background-color: #d0e7ff; /* Light blue */
+    }
+
+    .task.task1 {
+        background-color: #d0e7ff; /* Light blue */
+    }
+
+    .task.task2 {
+        background-color: #e0ffe0; /* Light green */
+    }
+
+    .task.task3 {
+        background-color: #d0e7ff; /* Light blue */
+    }
+
+    .task.task4 {
+        background-color: #d0e7ff; /* Light blue */
+    }

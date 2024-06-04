@@ -1,16 +1,18 @@
-﻿using ToDoApp.Klassen;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using ToDoApp.Klassen;
+using ToDoApp.Shared;
 
 namespace ToDoApp.Klassen
 {
 	public class ToDoList
 	{
-		private int m_listID;
-		private string m_listName;
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+		public string ListName { get; set; }
 
-		public ToDoList(int listID, string listName)
+		public ToDoList()
 		{
-			m_listID = listID;
-			m_listName = listName;
+
 		}
 
 		public void AddItem(ToDoItem item)

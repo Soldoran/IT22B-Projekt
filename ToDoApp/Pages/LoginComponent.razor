@@ -1,0 +1,50 @@
+﻿@page "/login"
+@using ToDoApp.Klassen
+@inject ApplicationDbContext DbContext
+
+<h3>Login</h3>
+
+<EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+    <label>Name</label>
+    <InputText @bind-Value="loginModel.Username" placeholder="Username" />
+    <br />
+    <br />
+    <label>Passwort</label>
+    <InputText @bind-Value="loginModel.Password" type="password" placeholder="Password" />
+    <br />
+    <br />
+    <button type="submit" onclick="@HandleLogin()" class="m-3 p-3 col-1">Login</button>
+</EditForm>
+
+<p>@loginMessage</p>
+
+@code {
+    private Userclass loginModel = new Userclass();
+    private string? loginMessage;
+
+    private async Task HandleLogin()
+    {
+        Userclass? registeredUser = DbContext.Userclasses.Where(u => u.Username == loginModel.Username).FirstOrDefault();
+        if (registeredUser != null)
+        {
+            if (registeredUser.Password == loginModel.Password)
+            {
+                loginMessage = "Login successful!";
+            }
+            else
+            {
+                loginMessage = "Invalid username or password.";
+            }
+        }
+        else
+        {
+            loginMessage = "Invalid username or password.";
+        }
+    }
+
+    public class LoginModel
+    {
+        public string? Username { get; set; }
+        public string? Password { get; set; }
+    }
+}

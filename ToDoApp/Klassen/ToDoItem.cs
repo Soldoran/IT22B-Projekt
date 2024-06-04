@@ -1,17 +1,17 @@
-﻿namespace ToDoApp.Klassen
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using static ToDoApp.Pages.ToDoListComponent;
+
+namespace ToDoApp.Shared
 {
 	public class ToDoItem
 	{
-		private int m_itemID;
-		private string m_itemTitle;
-		private string m_itemDescription;
-		private DateTime m_creationDate;
-		private DateTime m_dueDate;
-		private ItemState m_itemState;
-		private string m_itemCategory;
-		private string m_itemOwner;
+		public string? Title { get; set; }
+		public bool IsDone { get; set; } = false;
+		public Status Status {get; set;}
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
-		public ToDoItem()
+        public ToDoItem()
 		{
 
 		}
