@@ -2,6 +2,8 @@
 @using Microsoft.EntityFrameworkCore
 @using ToDoApp.Klassen
 @using Radzen.Blazor
+@using ToDoApp.Modal
+@inject DialogService DialogService
 
 <div class="board">
     <RadzenDropZoneContainer TItem="ToDoItem" Data="data"
@@ -18,6 +20,7 @@
                     <Footer>
                         <div>
                             <RadzenButton Size="ButtonSize.ExtraSmall" Icon="add" ButtonStyle="ButtonStyle.Success" Click="@CreateItem" />
+                            <RadzenButton Text=@($"Order details") ButtonStyle="ButtonStyle.Secondary" Click=@OpenOrder />
                         </div>
                     </Footer>
                 </RadzenDropZone>
@@ -25,7 +28,7 @@
 
             <div class="column started">
                 <RadzenDropZone Value="Status.Started" Style="flex: 1; gap: 1rem; min-width:fit-content;">
-                    <RadzenText Text="Started" TextStyle="TextStyle.Subtitle2" />
+                    <RadzenText Text="Started" TextStyle="TextStyle.Subtitle2" /> Test
                 </RadzenDropZone>
             </div>
 
@@ -43,6 +46,8 @@
         </ChildContent>
     </RadzenDropZoneContainer>
 </div>
+
+<RadzenDialog />
 @code {
     // Filter items by zone value
     Func<ToDoItem, RadzenDropZone<ToDoItem>, bool> ItemSelector = (item, zone) => item.Status == (Status)zone.Value && item.Status != Status.Deleted;
@@ -53,6 +58,14 @@
         return request.FromZone == request.ToZone || (Status)request.ToZone.Value == Status.Deleted ||
                Math.Abs((int)request.Item.Status - (int)request.ToZone.Value) == 1;
     };
+
+    public async Task OpenOrder()
+    {
+        ToDoItem newItem = new();
+        await DialogService.OpenAsync<ToDoItemModal>("To Do Item",
+               new Dictionary<string, object>() { { "ToDoItem", newItem } },
+               new DialogOptions() { Width = "700px", Height = "512px", Resizable = true, Draggable = true });
+    }
 
     void OnItemRender(RadzenDropZoneItemRenderEventArgs<ToDoItem> args)
     {
