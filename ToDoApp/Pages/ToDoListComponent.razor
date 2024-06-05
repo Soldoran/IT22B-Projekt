@@ -1,0 +1,142 @@
+﻿@page "/todo"
+@using Microsoft.EntityFrameworkCore
+@using ToDoApp.Klassen
+@using Radzen.Blazor
+@using ToDoApp.Modal
+@inject DialogService DialogService
+
+<div class="board">
+    <RadzenDropZoneContainer TItem="ToDoItem" Data="data"
+                             ItemSelector="@ItemSelector"
+                             ItemRender="@OnItemRender"
+                             CanDrop="@CanDrop"
+                             Drop="OnDrop" class="board">
+        <ChildContent>
+            <div class="column not-started">
+                <RadzenDropZone Value="Status.NotStarted" Style="flex: 1; gap: 1rem;">
+                    <ChildContent>
+                        <RadzenText Text="Not started" TextStyle="TextStyle.Subtitle2" />
+                    </ChildContent>
+                    <Footer>
+                        <div>
+                            <RadzenButton Size="ButtonSize.ExtraSmall" Icon="add" ButtonStyle="ButtonStyle.Success" Click="@CreateItem" />
+                            <RadzenButton Text=@($"Order details") ButtonStyle="ButtonStyle.Secondary" Click=@OpenOrder />
+                        </div>
+                    </Footer>
+                </RadzenDropZone>
+            </div>
+
+            <div class="column started">
+                <RadzenDropZone Value="Status.Started" Style="flex: 1; gap: 1rem; min-width:fit-content;">
+                    <RadzenText Text="Started" TextStyle="TextStyle.Subtitle2" /> Test
+                </RadzenDropZone>
+            </div>
+
+            <div class="column completed">
+                <RadzenDropZone Value="Status.Completed" Style="flex: 1; gap: 1rem; min-width:fit-content;">
+                    <RadzenText Text="Completed" TextStyle="TextStyle.Subtitle2" />
+                </RadzenDropZone>
+            </div>
+
+            <div class="column delete">
+                <RadzenDropZone Value="Status.Deleted" Style="flex: 1; gap: 1rem; min-width:fit-content;">
+                    <RadzenText Text="Drop here to delete" TextStyle="TextStyle.Subtitle2" />
+                </RadzenDropZone>
+            </div>
+        </ChildContent>
+    </RadzenDropZoneContainer>
+</div>
+
+<RadzenDialog />
+@code {
+    // Filter items by zone value
+    Func<ToDoItem, RadzenDropZone<ToDoItem>, bool> ItemSelector = (item, zone) => item.Status == (Status)zone.Value && item.Status != Status.Deleted;
+
+    Func<RadzenDropZoneItemEventArgs<ToDoItem>, bool> CanDrop = request =>
+    {
+        // Allow item drop only in the same zone, in "Deleted" zone or in the next/previous zone.
+        return request.FromZone == request.ToZone || (Status)request.ToZone.Value == Status.Deleted ||
+               Math.Abs((int)request.Item.Status - (int)request.ToZone.Value) == 1;
+    };
+
+    public async Task OpenOrder()
+    {
+        ToDoItem newItem = new();
+        await DialogService.OpenAsync<ToDoItemModal>("To Do Item",
+               new Dictionary<string, object>() { { "ToDoItem", newItem } },
+               new DialogOptions() { Width = "700px", Height = "512px", Resizable = true, Draggable = true });
+    }
+
+    void OnItemRender(RadzenDropZoneItemRenderEventArgs<ToDoItem> args)
+    {
+        // Customize item appearance
+        if (args.Item.Title == "Task2")
+        {
+            args.Attributes["draggable"] = "true";
+            args.Attributes["class"] = "task";
+        }
+        else
+        {
+            args.Attributes["class"] = "task";
+        }
+
+        // Do not render item if deleted
+        args.Visible = args.Item.Status != Status.Deleted;
+    }
+
+    async Task OnDrop(RadzenDropZoneItemEventArgs<ToDoItem> args)
+    {
+        if (args == null)
+        {
+            Console.WriteLine("Drop args is null");
+            return;
+        }
+
+        if (args.FromZone != args.ToZone)
+        {
+            // update item zone
+            args.Item.Status = (Status)args.ToZone.Value;
+        }
+
+        if (args.ToItem != null && args.ToItem != args.Item)
+        {
+            // reorder items in same zone or place the item at specific index in new zone
+            data.Remove(args.Item);
+            data.Insert(data.IndexOf(args.ToItem), args.Item);
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    IList<ToDoItem> data;
+
+    protected override void OnInitialized()
+    {
+        data = Enumerable.Range(0, 5)
+            .Select(i =>
+                new ToDoItem()
+                    {
+                        Title = $"Task{i}",
+                        IsDone = false
+                    })
+            .ToList();
+    }
+
+    private void CreateItem()
+    {
+        data.Add(new ToDoItem()
+            {
+                Title = "New Task",
+                IsDone = false,
+                Status = Status.NotStarted
+            });
+    }
+
+    public enum Status
+    {
+        NotStarted,
+        Started,
+        Completed,
+        Deleted
+    }
+}

@@ -1,33 +1,39 @@
-﻿namespace ToDoApp.Klassen
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
+namespace ToDoApp.Klassen
 {
-	public class Userclass
-	{
-		#region Member
-		private int m_userID;
-		private string m_username;
-		private string m_password;
-		#endregion
+    public class Userclass
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
-		#region Parameter
-		#endregion
+        [Required]
+        [MaxLength(50)]
+        public string Username { get; set; }
 
-		public Userclass(int ID, string Name, string Password)
-		{
-			m_userID = ID;
-			m_username = Name;
-			m_password = Password;
-		}
+        [Required]
+        [MaxLength(50)]
+        public string Password { get; set; }
 
-		#region Methoden
-		public void Login()
-		{
+        public ICollection<ToDoList> ToDoLists { get; set; }
 
-		}
+        public async Task<bool> Login(ApplicationDbContext dbContext)
+        {
+            var user = await dbContext.Userclasses.SingleOrDefaultAsync(u => u.Username == this.Username);
+            if (user != null && user.Password == this.Password)
+            {
+                return true;
+            }
+            return false;
+        }
 
-		public void Logout()
-		{
-
-		}
-		#endregion
-	}
+        public void Logout()
+        {
+            // Implementieren Sie die Abmeldefunktionalität, falls nötig
+        }
+    }
 }
