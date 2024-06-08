@@ -12,7 +12,7 @@ using ToDoApp.Klassen;
 namespace ToDoApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240604194637_init")]
+    [Migration("20240608173355_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -78,8 +78,20 @@ namespace ToDoApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("IsDone")
-                        .HasColumnType("bit");
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Owner")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

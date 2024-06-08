@@ -4,6 +4,7 @@
 @using Radzen.Blazor
 @using ToDoApp.Modal
 @inject DialogService DialogService
+@inject ApplicationDbContext DbContext
 
 <div class="board">
     <RadzenDropZoneContainer TItem="ToDoItem" Data="data"
@@ -19,8 +20,7 @@
                     </ChildContent>
                     <Footer>
                         <div>
-                            <RadzenButton Size="ButtonSize.ExtraSmall" Icon="add" ButtonStyle="ButtonStyle.Success" Click="@CreateItem" />
-                            <RadzenButton Text=@($"Order details") ButtonStyle="ButtonStyle.Secondary" Click=@OpenOrder />
+                            <RadzenButton Text=@($"Neuer Task") ButtonStyle="ButtonStyle.Secondary" Click=@NewToDoItem />
                         </div>
                     </Footer>
                 </RadzenDropZone>
@@ -28,7 +28,7 @@
 
             <div class="column started">
                 <RadzenDropZone Value="Status.Started" Style="flex: 1; gap: 1rem; min-width:fit-content;">
-                    <RadzenText Text="Started" TextStyle="TextStyle.Subtitle2" /> Test
+                    <RadzenText Text="Started" TextStyle="TextStyle.Subtitle2" />
                 </RadzenDropZone>
             </div>
 
@@ -44,11 +44,17 @@
                 </RadzenDropZone>
             </div>
         </ChildContent>
+
+        <Template>
+            <strong>@context.Title</strong>
+        </Template>
+
     </RadzenDropZoneContainer>
 </div>
 
-<RadzenDialog />
 @code {
+    IList<ToDoItem>? data;
+
     // Filter items by zone value
     Func<ToDoItem, RadzenDropZone<ToDoItem>, bool> ItemSelector = (item, zone) => item.Status == (Status)zone.Value && item.Status != Status.Deleted;
 
@@ -59,26 +65,17 @@
                Math.Abs((int)request.Item.Status - (int)request.ToZone.Value) == 1;
     };
 
-    public async Task OpenOrder()
+    public async Task NewToDoItem()
     {
         ToDoItem newItem = new();
-        await DialogService.OpenAsync<ToDoItemModal>("To Do Item",
+        await DialogService.OpenAsync<ToDoItemModal>("Neuer Task",
                new Dictionary<string, object>() { { "ToDoItem", newItem } },
                new DialogOptions() { Width = "700px", Height = "512px", Resizable = true, Draggable = true });
     }
 
     void OnItemRender(RadzenDropZoneItemRenderEventArgs<ToDoItem> args)
     {
-        // Customize item appearance
-        if (args.Item.Title == "Task2")
-        {
-            args.Attributes["draggable"] = "true";
-            args.Attributes["class"] = "task";
-        }
-        else
-        {
-            args.Attributes["class"] = "task";
-        }
+        args.Attributes["class"] = "task";
 
         // Do not render item if deleted
         args.Visible = args.Item.Status != Status.Deleted;
@@ -101,35 +98,33 @@
         if (args.ToItem != null && args.ToItem != args.Item)
         {
             // reorder items in same zone or place the item at specific index in new zone
-            data.Remove(args.Item);
+            data!.Remove(args.Item);
             data.Insert(data.IndexOf(args.ToItem), args.Item);
         }
 
+        await DbContext.SaveChangesAsync();
         await InvokeAsync(StateHasChanged);
     }
 
-    IList<ToDoItem> data;
-
     protected override void OnInitialized()
     {
-        data = Enumerable.Range(0, 5)
-            .Select(i =>
-                new ToDoItem()
-                    {
-                        Title = $"Task{i}",
-                        IsDone = false
-                    })
-            .ToList();
+        data = GetDbItems();
     }
 
-    private void CreateItem()
+    private List<ToDoItem> GetDbItems()
     {
-        data.Add(new ToDoItem()
-            {
-                Title = "New Task",
-                IsDone = false,
-                Status = Status.NotStarted
-            });
+        List<ToDoItem> list = new();
+
+        if (DbContext.ToDoItems.Any<ToDoItem>())
+        {
+            list = DbContext.ToDoItems.ToList();
+        }
+        else
+        {
+            list = new List<ToDoItem>();
+        }
+
+        return list;
     }
 
     public enum Status
