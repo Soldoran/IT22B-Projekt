@@ -84,13 +84,13 @@ parent={},%
 
 \glsdefs@newdocentry{<gitbeschreibung>}%
 {%
-name={Git>},%
-sort={Git>},%
+name={Git},%
+sort={Git},%
 type={main},%
-first={Git>},%
-firstplural={Git>s},%
-text={Git>},%
-plural={Git>s},%
+first={Git},%
+firstplural={Gits},%
+text={Git},%
+plural={Gits},%
 description={Git ist ein Tool zur Versionskontrolle in Softwareprojekten},%
 descriptionplural={Git ist ein Tool zur Versionskontrolle in Softwareprojekten},%
 symbol={\relax },%
@@ -140,13 +140,13 @@ parent={},%
 
 \glsdefs@newdocentry{<blazorbeschreibung>}%
 {%
-name={Blazor>},%
-sort={Blazor>},%
+name={Blazor},%
+sort={Blazor},%
 type={main},%
-first={Blazor>},%
-firstplural={Blazor>s},%
-text={Blazor>},%
-plural={Blazor>s},%
+first={Blazor},%
+firstplural={Blazors},%
+text={Blazor},%
+plural={Blazors},%
 description={Blazor ist ein Webframework welches das Entwickeln von Webapplikationen in C\# und HTML ermöglicht},%
 descriptionplural={Blazor ist ein Webframework welches das Entwickeln von Webapplikationen in C\# und HTML ermöglicht},%
 symbol={\relax },%
