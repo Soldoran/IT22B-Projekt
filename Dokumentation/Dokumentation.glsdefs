@@ -1,0 +1,280 @@
+\glsdefs@newdocentry{<glossarkopf>}%
+{%
+name={Begriff},%
+sort={Begriff},%
+type={main},%
+first={Begriff},%
+firstplural={Begriffs},%
+text={Begriff},%
+plural={Begriffs},%
+description={Beschreibung / Ergänzung},%
+descriptionplural={Beschreibung / Ergänzung},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{<todinobeschreibung>}%
+{%
+name={To-Dino},%
+sort={To-Dino},%
+type={main},%
+first={To-Dino},%
+firstplural={To-Dinos},%
+text={To-Dino},%
+plural={To-Dinos},%
+description={To-Dino ist eine für Webbrowser Optimierte To-Do-Listen Applikation zum erstellen und verwalten von To-Do Listen},%
+descriptionplural={To-Dino ist eine für Webbrowser Optimierte To-Do-Listen Applikation zum erstellen und verwalten von To-Do Listen},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{<radzenbeschreibung>}%
+{%
+name={Radzen},%
+sort={Radzen},%
+type={main},%
+first={Radzen},%
+firstplural={Radzens},%
+text={Radzen},%
+plural={Radzens},%
+description={Trademark der Firma Radzen},%
+descriptionplural={Trademark der Firma Radzen},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{<gitbeschreibung>}%
+{%
+name={Git>},%
+sort={Git>},%
+type={main},%
+first={Git>},%
+firstplural={Git>s},%
+text={Git>},%
+plural={Git>s},%
+description={Git ist ein Tool zur Versionskontrolle in Softwareprojekten},%
+descriptionplural={Git ist ein Tool zur Versionskontrolle in Softwareprojekten},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{<csharpbeschreibung>}%
+{%
+name={C\#},%
+sort={C\#},%
+type={main},%
+first={C\#},%
+firstplural={C\#s},%
+text={C\#},%
+plural={C\#s},%
+description={CSharp (abgekürzt C\#) ist eine objektorientierte Programmiersprache},%
+descriptionplural={CSharp (abgekürzt C\#) ist eine objektorientierte Programmiersprache},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{<blazorbeschreibung>}%
+{%
+name={Blazor>},%
+sort={Blazor>},%
+type={main},%
+first={Blazor>},%
+firstplural={Blazor>s},%
+text={Blazor>},%
+plural={Blazor>s},%
+description={Blazor ist ein Webframework welches das Entwickeln von Webapplikationen in C\# und HTML ermöglicht},%
+descriptionplural={Blazor ist ein Webframework welches das Entwickeln von Webapplikationen in C\# und HTML ermöglicht},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{<visualstudiobeschreibung>}%
+{%
+name={Visual Studio},%
+sort={Visual Studio},%
+type={main},%
+first={Visual Studio},%
+firstplural={Visual Studios},%
+text={Visual Studio},%
+plural={Visual Studios},%
+description={Entwicklungsumgebung von Microsoft},%
+descriptionplural={Entwicklungsumgebung von Microsoft},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{<corereviewbeschreibung>}%
+{%
+name={Core-Review},%
+sort={Core-Review},%
+type={main},%
+first={Core-Review},%
+firstplural={Core-Reviews},%
+text={Core-Review},%
+plural={Core-Reviews},%
+description={Manuelle Überprüfung von Programmcode, um Fehler zu verhindern und das Einhalten von Standards zu garantierenäufiger Entwurf einer geplanten Benutzeroberfläche},%
+descriptionplural={Manuelle Überprüfung von Programmcode, um Fehler zu verhindern und das Einhalten von Standards zu garantierenäufiger Entwurf einer geplanten Benutzeroberfläche},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{<mockupbeschreibung>}%
+{%
+name={Debugger},%
+sort={Debugger},%
+type={main},%
+first={Debugger},%
+firstplural={Debuggers},%
+text={Debugger},%
+plural={Debuggers},%
+description={Vorläufiger Entwurf einer geplanten Benutzeroberfläche},%
+descriptionplural={Vorläufiger Entwurf einer geplanten Benutzeroberfläche},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{<debuggerbeschreibung>}%
+{%
+name={Debugger},%
+sort={Debugger},%
+type={main},%
+first={Debugger},%
+firstplural={Debuggers},%
+text={Debugger},%
+plural={Debuggers},%
+description={Software-Tool, welches Entwicklern hilft Code eines Programmes zu analysieren und Fehler zu finden},%
+descriptionplural={Software-Tool, welches Entwicklern hilft Code eines Programmes zu analysieren und Fehler zu finden},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+

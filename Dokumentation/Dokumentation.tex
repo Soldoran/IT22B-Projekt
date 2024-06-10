@@ -1,6 +1,6 @@
 %--------------------------------------------------------
 	% Variablen
-	\newcommand{\myTitle}{To-Do-App in Blazor}
+	\newcommand{\myTitle}{To-Do-App "To-Dino" in Blazor}
 	\newcommand{\myAuthor}{Leo - Jonathan - Sebastian}
 	\newcommand{\myLineThickness}{0.4pt}
 	
@@ -72,6 +72,7 @@
 	\usepackage{caption}
 	\usepackage[a4paper, left=2.5cm, right=2.5cm]{geometry} % Seitenränder 2.5cm
 	\usepackage{setspace} % Zeilenabstand anpassen
+	\usepackage[toc,section=section]{glossaries}
 	
 	% Werden gebraucht um den ToC (+ LoF, LoT) in sich selbst darzustellen
 	\usepackage{etoc}
@@ -101,11 +102,15 @@
 	\renewcommand{\contentsname}{Inhaltsverzeichnis}
 	\renewcommand{\listfigurename}{Abbildungsverzeichnis}
 	\renewcommand{\listtablename}{Tabellenverzeichnis}
+	
+	\makeglossaries
+	\glstoctrue
 		
 %--------------------------------------------------------
 
 
 \begin{document}
+	\setcounter{secnumdepth}{0}
 	% Titelseite
 	\maketitle % Wird verwendet um den Titel + Author anzuzeigen
 	\thispagestyle{empty}
@@ -125,17 +130,25 @@
 	% Tabellenverzeichnis
 	\listoftables
 	\newpage
-	\clearpage
+	%\clearpage
 	
 	% Verzeichnis der Listings
-	\listings
+	%\listings
 	
 	% Glossar
+	\section{Glossar}
+	\label{sec:Glossar}
 	\glossar
+	\glossarycommand
+	\newpage
 	
 	% Abkürzungsverzeichnis
+	\section{Abkürzungsverzeichnis}
+	\label{sec:abkuerzungsverzeichnis}
 	\abkuerzungsverzeichnis
+	\newpage
 	
+	\setcounter{secnumdepth}{1}
 	\pagenumbering{arabic}
 	% 1 Einleitung
 	\einleitung
@@ -173,4 +186,6 @@
 	
 	% Ende Dokumentation
 % ---------------------------------
+\printglossaries
+\addcontentsline{toc}{section}{Glossar}
 \end{document}
