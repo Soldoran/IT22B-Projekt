@@ -1,9 +1,10 @@
 ﻿@page "/register"
 @using ToDoApp.Klassen
 @inject ApplicationDbContext DbContext
-@*Hilfreiches Tutorial für automatische Datenbank + Tabellen erstellen via Visual Studio anhand der Klassen und ihren Parametern = https://www.youtube.com/watch?v=xtDmYMODO-M*@
-<h3>Register</h3>
 
+<h3>Neuen Nutzer Registrieren</h3>
+
+@* Hier wurde Beispielhaft eine Eingabemaske ohne Komponenten der Radzen Bibliothek umgesetzt, um zu demonstrieren wie man eine Eigene Komponente erstellen könnte*@
 <EditForm Model="@registerModel" OnValidSubmit="HandleRegister">
     <label>Name</label>
     <InputText @bind-Value="registerModel.Username" placeholder="Username" />
@@ -22,6 +23,11 @@
     private Userclass registerModel = new Userclass();
     private string? loginMessage;
 
+    /// <summary>
+    /// Überprüft ob der Name bereits in der Datenbank vorhanden ist. Wenn kein Nutzer gefunden wurde, wird ein neuer Nutzer mit den angegebenen Werten erstellt und in der Datenbank angelegt.
+    /// Sollte bereits ein Nutzer mit dem Namen existieren, wird der Nutzer darauf hingewiesen und es wird kein neuer Nutzer erstellt oder bestehnder verändert.
+    /// </summary>
+    /// <returns></returns>
     private async Task HandleRegister()
     {
         Userclass? registeredUser = DbContext.Userclasses.Where(u => u.Username == registerModel.Username).FirstOrDefault();
@@ -37,11 +43,5 @@
         {
             loginMessage = $"There is already a User with the Name  \"{registerModel.Username}\"";
         }
-    }
-
-    public class LoginModel
-    {
-        public string? Username { get; set; }
-        public string? Password { get; set; }
     }
 }
