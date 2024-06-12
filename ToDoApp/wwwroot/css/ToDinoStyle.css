@@ -12,6 +12,7 @@
     flex-direction: row !important;
     gap: 20px !important;
     padding: 20px !important;
+    justify-content: space-between;
 }
 
 /* Column styles */
@@ -52,7 +53,7 @@
 
 /* Task card styles */
 .task {
-    background-color: #d0e7ff; /* Light blue */
+    background-color: #ff9100; /* inray Orange */
     border-radius: 8px;
     padding: 10px;
     margin-bottom: 10px;
@@ -84,3 +85,52 @@
     .task.task4 {
         background-color: #d0e7ff; /* Light blue */
     }
+
+.page-background-class {
+    background-image: url(../Resources/DinoLogo2.jpg) !important;
+    background-repeat: no-repeat !important;
+    background-size: inherit !important;
+    background-position: center !important;
+    background-color: midnightblue !important;
+}
+
+.left-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    top: -40px;
+    right: 50px;
+    width: auto;
+}
+
+.right-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: absolute;
+    top: 80px;
+    right: 50px;
+    width: auto;
+    align-items: flex-end; /* Stellt sicher, dass die Container am rechten Rand ausgerichtet sind */
+}
+
+.mid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: absolute;
+    top: 80px;
+    right: 750px;
+    width: auto !important;
+    align-items: center; /* Stellt sicher, dass die Container am rechten Rand ausgerichtet sind */
+    background-color: moccasin;
+    border-style: solid !important;
+}
+
+.modal-container {
+    display: inline-table !important;
+    width: fit-content !important;
+    background-size: auto !important;
+    overflow: auto !important;
+}

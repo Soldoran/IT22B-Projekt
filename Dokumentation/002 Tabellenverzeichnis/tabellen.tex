@@ -1,9 +1,9 @@
 %Template Tabelle
 % -------------------------------------------------------
 \newcommand{\tabelle}{
-	\begin{table}
+	\begin{table}[h]
 		\begin{center}
-			\begin{tabular}[h]{|l|c|r|}
+			\begin{tabular}{|l|c|r|}
 				
 			\end{tabular}
 		\end{center}
@@ -12,9 +12,9 @@
 }
 % -------------------------------------------------------
 \newcommand{\zeitplanung}{
-	\begin{table}
+	\begin{table}[h]
 		\begin{center}
-			\begin{tabular}[h]{|l|r|}
+			\begin{tabular}{|l|r|}
 				\hline
 				Projektphase & Geplante Zeit \\
 				\hline
@@ -38,7 +38,7 @@
 }
 % -------------------------------------------------------
 \newcommand{\projektkostentabelle}{
-	\begin{table}
+	\begin{table}[h]
 		\begin{center}
 			\begin{tabular}{|c|c|c|c|}
 				\hline
@@ -53,5 +53,36 @@
 		\caption{Projektkosten}
 	\end{table}
 	\label{tab:tabelle2}
+}
+% -------------------------------------------------------
+\newcommand{\glossarycommand}{
+	\begin{table}[h]
+		\begin{center}
+			\begin{tabular}[h]{|l|p{10cm}|}
+				\hline
+				\gls{<glossarkopf>} & \glsdesc{<glossarkopf>} \\
+				\hline
+				\gls{<todinobeschreibung>} & T\glsdesc{<todinobeschreibung>} \\
+				\hline
+				\gls{<radzenbeschreibung>} & \glsdesc{<radzenbeschreibung>} \\
+				\hline
+				\gls{<gitbeschreibung>} & \glsdesc{<gitbeschreibung>} \\
+				\hline
+				\gls{<csharpbeschreibung>} & \glsdesc{<csharpbeschreibung>} \\
+				\hline
+				\gls{<blazorbeschreibung>} & \glsdesc{<blazorbeschreibung>} \\
+				\hline
+				\gls{<visualstudiobeschreibung>} & \glsdesc{<visualstudiobeschreibung>} \\
+				\hline
+				\gls{<corereviewbeschreibung>} & \glsdesc{<corereviewbeschreibung>} \\
+				\hline
+				\gls{<mockupbeschreibung>}p & \glsdesc{<mockupbeschreibung>} \\
+				\hline
+				\gls{<debuggerbeschreibung>} & \glsdesc{<debuggerbeschreibung>} \\
+				\hline
+			\end{tabular}
+		\end{center}
+	\end{table}
+	\label{tab:glossary}
 }
 % -------------------------------------------------------

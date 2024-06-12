@@ -7,12 +7,9 @@ Verwaltung von To-Dos. Getrennt in Privat und Gewerblich. Nutzerverwaltung. "Tic
 Nutzer => Datenbank
 
 ### Objekte
-  * User
-  * UsersToDoLists
+  * Userclass
   * ToDoList
   * ToDoItem
-  * AuthenticationService
-  * MsSqlDatabase
 
 
 ## Gruppe
@@ -23,6 +20,22 @@ Nutzer => Datenbank
 ## Verwendete Sprachen
 * C#
 * TSQL
+* TeX
+* HTML
+
+## Auschecken des Projektes
+
+`https://github.com/Soldoran/IT22B-Projekt.git`
+
+## Generieren der Datenbank mit Visual Studio
+
+Wenn kein Migrations-Ordner mit Dateien vorhanden ist:
+
+`Add-Migration init`
+
+Um die Datenbank erstellen zu lassen:
+
+`Update-Database`
 
 ## Git in der Eingabeaufforderung
 

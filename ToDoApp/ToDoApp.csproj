@@ -20,4 +20,10 @@
     <Folder Include="Data\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Resources\DinoLogo1.jpg" />
+    <None Include="wwwroot\Resources\DinoLogo2.jpg" />
+    <None Include="wwwroot\Resources\DinoLogo3.png" />
+  </ItemGroup>
+
 </Project>

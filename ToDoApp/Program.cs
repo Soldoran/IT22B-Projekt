@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.Extensions.DependencyInjection;
+using Radzen;
 using ToDoApp.Klassen;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<ApplicationDbContext>();
-builder.Services.AddScoped<Radzen.DialogService>();
+
+builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.Environment.ContentRootPath) });
+
+// Radzen Services
+builder.Services.AddRadzenComponents();
+builder.Services.AddScoped<DialogService>();
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<ContextMenuService>();
+builder.Services.AddScoped<TooltipService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
