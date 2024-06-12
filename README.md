@@ -33,6 +33,8 @@ Wenn kein Migrations-Ordner mit Dateien vorhanden ist:
 
 `Add-Migration init`
 
+Um die Datenbank erstellen zu lassen:
+
 `Update-Database`
 
 ## Git in der Eingabeaufforderung
