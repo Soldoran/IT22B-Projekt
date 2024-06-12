@@ -31,6 +31,19 @@ namespace ToDoApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ToDoLists",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ListName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ToDoLists", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Userclasses",
                 columns: table => new
                 {
@@ -43,30 +56,6 @@ namespace ToDoApp.Migrations
                 {
                     table.PrimaryKey("PK_Userclasses", x => x.Id);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "ToDoLists",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ListName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserclassId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ToDoLists", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ToDoLists_Userclasses_UserclassId",
-                        column: x => x.UserclassId,
-                        principalTable: "Userclasses",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ToDoLists_UserclassId",
-                table: "ToDoLists",
-                column: "UserclassId");
         }
 
         /// <inheritdoc />

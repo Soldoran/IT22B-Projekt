@@ -34,12 +34,7 @@ namespace ToDoApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserclassId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserclassId");
 
                     b.ToTable("ToDoLists");
                 });
@@ -99,18 +94,6 @@ namespace ToDoApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ToDoItems");
-                });
-
-            modelBuilder.Entity("ToDoApp.Klassen.ToDoList", b =>
-                {
-                    b.HasOne("ToDoApp.Klassen.Userclass", null)
-                        .WithMany("ToDoLists")
-                        .HasForeignKey("UserclassId");
-                });
-
-            modelBuilder.Entity("ToDoApp.Klassen.Userclass", b =>
-                {
-                    b.Navigation("ToDoLists");
                 });
 #pragma warning restore 612, 618
         }
