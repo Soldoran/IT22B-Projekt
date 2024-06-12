@@ -30,9 +30,10 @@ Nutzer => Datenbank
 ## Generieren der Datenbank mit Visual Studio
 
 Wenn kein Migrations-Ordner mit Dateien vorhanden ist:
-'Add-Migration init'
 
-'Update-Database'
+`Add-Migration init`
+
+`Update-Database`
 
 ## Git in der Eingabeaufforderung
 
