@@ -6,8 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ToDoApp.Klassen
 {
+    /// <summary>
+    /// Repräsentiert einen Benutzer der Anwendung. Hat die möglichkeit sich bei der Anwendung mit seinem Username und Password anzumelden.
+    /// </summary>
     public class Userclass
     {
+        /// <summary>
+        /// Primary Key in der Datenbanktabelle Userclasses
+        /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
@@ -18,22 +24,5 @@ namespace ToDoApp.Klassen
         [Required]
         [MaxLength(50)]
         public string Password { get; set; }
-
-        public ICollection<ToDoList> ToDoLists { get; set; }
-
-        public async Task<bool> Login(ApplicationDbContext dbContext)
-        {
-            var user = await dbContext.Userclasses.SingleOrDefaultAsync(u => u.Username == this.Username);
-            if (user != null && user.Password == this.Password)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public void Logout()
-        {
-            // Implementieren Sie die Abmeldefunktionalität, falls nötig
-        }
     }
 }

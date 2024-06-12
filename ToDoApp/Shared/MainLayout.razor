@@ -1,18 +1,16 @@
 ﻿@using ToDoApp.Pages;
 @inherits LayoutComponentBase
 
-<PageTitle>ToDoApp</PageTitle>
+<PageTitle>To-Dino</PageTitle>
 
 <div class="page">
     <div class="sidebar">
         <NavMenu />
     </div>
 
-    <main>
+    @*Hier ist der Navigationsbereich, welcher am oberen Rand angezeigt wird*@
+    <main class="page-background-class">
         <div class="top-row px-4">
-            <div>
-                <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-            </div>
             <div class="m-3">
                 <button type="button" @onclick="() => showLoginPrompt = true">Login</button>
             </div>
@@ -29,14 +27,18 @@
         {
             <RegisterComponent />
         }
-
-        <article class="content px-4">
-            @Body
-        </article>
+        <div>
+            <article class="content px-4">
+                @Body
+            </article>
+        </div>
+        <div class="mid-container">
+            <RadzenDialog />
+        </div>
     </main>
 </div>
 
 @code {
-    bool showLoginPrompt;
-    bool showRegisterPrompt;
+    public bool showLoginPrompt;
+    public bool showRegisterPrompt;
 }

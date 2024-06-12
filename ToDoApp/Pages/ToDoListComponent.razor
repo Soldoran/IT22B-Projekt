@@ -1,9 +1,10 @@
-﻿@page "/todo"
+﻿@page "/"
 @using Microsoft.EntityFrameworkCore
 @using ToDoApp.Klassen
 @using Radzen.Blazor
 @using ToDoApp.Modal
 @inject DialogService DialogService
+@inject ApplicationDbContext DbContext
 
 <div class="board">
     <RadzenDropZoneContainer TItem="ToDoItem" Data="data"
@@ -12,43 +13,44 @@
                              CanDrop="@CanDrop"
                              Drop="OnDrop" class="board">
         <ChildContent>
-            <div class="column not-started">
-                <RadzenDropZone Value="Status.NotStarted" Style="flex: 1; gap: 1rem;">
-                    <ChildContent>
-                        <RadzenText Text="Not started" TextStyle="TextStyle.Subtitle2" />
-                    </ChildContent>
-                    <Footer>
-                        <div>
-                            <RadzenButton Size="ButtonSize.ExtraSmall" Icon="add" ButtonStyle="ButtonStyle.Success" Click="@CreateItem" />
-                            <RadzenButton Text=@($"Order details") ButtonStyle="ButtonStyle.Secondary" Click=@OpenOrder />
-                        </div>
-                    </Footer>
-                </RadzenDropZone>
+            <div class="left-container">
+                <RadzenDropZone Value="Status.NotStarted" class="column not-started" Style="flex: 1; gap: 1rem;">
+                        <ChildContent>
+                            <RadzenText Text="Not started" TextStyle="TextStyle.Subtitle2" />
+                        </ChildContent>
+                        <Footer>
+                            <div>
+                                <RadzenButton Text=@($"Neuer Task") ButtonStyle="ButtonStyle.Secondary" Click=@NewToDoItem />
+                            </div>
+                        </Footer>
+                    </RadzenDropZone>
+
+                    <RadzenDropZone Value="Status.Started" class="column started" Style="flex: 1; gap: 1rem; min-width:fit-content;">
+                        <RadzenText Text="Started" TextStyle="TextStyle.Subtitle2" />
+                    </RadzenDropZone>
             </div>
 
-            <div class="column started">
-                <RadzenDropZone Value="Status.Started" Style="flex: 1; gap: 1rem; min-width:fit-content;">
-                    <RadzenText Text="Started" TextStyle="TextStyle.Subtitle2" /> Test
-                </RadzenDropZone>
-            </div>
+            <div class="right-container">
+                    <RadzenDropZone Value="Status.Completed" class="column completed" Style="flex: 1; gap: 1rem; min-width:fit-content;">
+                        <RadzenText Text="Completed" TextStyle="TextStyle.Subtitle2" />
+                    </RadzenDropZone>
 
-            <div class="column completed">
-                <RadzenDropZone Value="Status.Completed" Style="flex: 1; gap: 1rem; min-width:fit-content;">
-                    <RadzenText Text="Completed" TextStyle="TextStyle.Subtitle2" />
-                </RadzenDropZone>
-            </div>
-
-            <div class="column delete">
-                <RadzenDropZone Value="Status.Deleted" Style="flex: 1; gap: 1rem; min-width:fit-content;">
-                    <RadzenText Text="Drop here to delete" TextStyle="TextStyle.Subtitle2" />
-                </RadzenDropZone>
+                <RadzenDropZone Value="Status.Deleted" class="column delete" Style="flex: 1; gap: 1rem; min-width:fit-content;">
+                        <RadzenText Text="Drop here to delete" TextStyle="TextStyle.Subtitle2" />
+                    </RadzenDropZone>
             </div>
         </ChildContent>
+
+        <Template>
+            <strong>@context.Title</strong>
+        </Template>
+
     </RadzenDropZoneContainer>
 </div>
 
-<RadzenDialog />
 @code {
+    IList<ToDoItem>? data;
+
     // Filter items by zone value
     Func<ToDoItem, RadzenDropZone<ToDoItem>, bool> ItemSelector = (item, zone) => item.Status == (Status)zone.Value && item.Status != Status.Deleted;
 
@@ -59,26 +61,17 @@
                Math.Abs((int)request.Item.Status - (int)request.ToZone.Value) == 1;
     };
 
-    public async Task OpenOrder()
+    public async Task NewToDoItem()
     {
         ToDoItem newItem = new();
-        await DialogService.OpenAsync<ToDoItemModal>("To Do Item",
+        await DialogService.OpenAsync<ToDoItemModal>("Neuer Task",
                new Dictionary<string, object>() { { "ToDoItem", newItem } },
-               new DialogOptions() { Width = "700px", Height = "512px", Resizable = true, Draggable = true });
+               new DialogOptions() { Width = "auto", Height = "auto", Resizable = false, Draggable = false });
     }
 
     void OnItemRender(RadzenDropZoneItemRenderEventArgs<ToDoItem> args)
     {
-        // Customize item appearance
-        if (args.Item.Title == "Task2")
-        {
-            args.Attributes["draggable"] = "true";
-            args.Attributes["class"] = "task";
-        }
-        else
-        {
-            args.Attributes["class"] = "task";
-        }
+        args.Attributes["class"] = "task";
 
         // Do not render item if deleted
         args.Visible = args.Item.Status != Status.Deleted;
@@ -101,35 +94,33 @@
         if (args.ToItem != null && args.ToItem != args.Item)
         {
             // reorder items in same zone or place the item at specific index in new zone
-            data.Remove(args.Item);
+            data!.Remove(args.Item);
             data.Insert(data.IndexOf(args.ToItem), args.Item);
         }
 
+        await DbContext.SaveChangesAsync();
         await InvokeAsync(StateHasChanged);
     }
 
-    IList<ToDoItem> data;
-
     protected override void OnInitialized()
     {
-        data = Enumerable.Range(0, 5)
-            .Select(i =>
-                new ToDoItem()
-                    {
-                        Title = $"Task{i}",
-                        IsDone = false
-                    })
-            .ToList();
+        data = GetDbItems();
     }
 
-    private void CreateItem()
+    private List<ToDoItem> GetDbItems()
     {
-        data.Add(new ToDoItem()
-            {
-                Title = "New Task",
-                IsDone = false,
-                Status = Status.NotStarted
-            });
+        List<ToDoItem> list = new();
+
+        if (DbContext.ToDoItems.Any<ToDoItem>())
+        {
+            list = DbContext.ToDoItems.ToList();
+        }
+        else
+        {
+            list = new List<ToDoItem>();
+        }
+
+        return list;
     }
 
     public enum Status
