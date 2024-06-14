@@ -64,9 +64,10 @@
     public async Task NewToDoItem()
     {
         ToDoItem newItem = new();
-        await DialogService.OpenAsync<ToDoItemModal>("Neuer Task",
+        newItem.Title = "Neuer Task";
+        await DialogService.OpenAsync<ToDoItemModal>(newItem.Title,
                new Dictionary<string, object>() { { "ToDoItem", newItem } },
-               new DialogOptions() { Width = "auto", Height = "auto", Resizable = false, Draggable = false });
+               new DialogOptions() { Width = "auto", Height = "auto", Resizable = true, Draggable = false });
     }
 
     void OnItemRender(RadzenDropZoneItemRenderEventArgs<ToDoItem> args)

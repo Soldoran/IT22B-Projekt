@@ -8,98 +8,92 @@
 @inject Radzen.TooltipService tooltipService
 @inject ApplicationDbContext DbContext
 
-@*Funktioniert leider nicht wie erhofft*@
-@*Soll ein Modal bereitstellen*@
-<div class="modal-container">
-        @*Die unterschiedlichen Eingabenfelder für ein ToDoItem*@
-        <RadzenStack Orientation="Orientation.Horizontal"  Gap="0.5rem" >
-            <RadzenStack>
-                <RadzenRow>
-                    <RadzenColumn>
-                        <RadzenText>Titel</RadzenText>
-                        <RadzenStack Orientation="Orientation.Vertical">
-                            <RadzenStack>
-                                <RadzenTextBox Name="Titel" @bind-Value="@ToDoItem.Title" ReadOnly="false"></RadzenTextBox>
-                            </RadzenStack>
-                        </RadzenStack>
-                    </RadzenColumn>
+<RadzenRow JustifyContent="@justifyContent" Gap="@gap" RowGap="@gap">
+    <RadzenColumn>
+        <RadzenText>Titel</RadzenText>
+    </RadzenColumn>
+    <RadzenColumn>
+        <RadzenTextBox Name="Titel" @bind-Value="@ToDoItem.Title" ReadOnly="false" />
+    </RadzenColumn>
+</RadzenRow>
 
-                    <RadzenColumn>
-                        <RadzenText>To Dino ID</RadzenText>
-                        <RadzenStack Orientation="Orientation.Vertical" >
-                            <RadzenStack>
-                                <RadzenTextBox Name="To Dino ID" Value="@ToDoItem.Id.ToString()" ReadOnly="true">Test</RadzenTextBox>
-                            </RadzenStack>
-                        </RadzenStack>
-                    </RadzenColumn>
+<RadzenRow JustifyContent="@justifyContent" Gap="@gap" RowGap="@gap">
+    <RadzenColumn>
+        <RadzenText>To Dino ID</RadzenText>
+    </RadzenColumn>
+    <RadzenColumn>
+        <RadzenTextBox Name="To Dino ID" Value="@ToDoItem.Id.ToString()" ReadOnly="true">Test</RadzenTextBox>
+    </RadzenColumn>
+</RadzenRow>
 
+<RadzenRow JustifyContent="@justifyContent" Gap="@gap" RowGap="@gap">
+    <RadzenColumn>
+        <RadzenText>Erstelldatum</RadzenText>
+    </RadzenColumn>
+    <RadzenColumn>
+        <RadzenTextBox Name="Erstellt am" Value="@ToDoItem.CreationDate.ToString()" ReadOnly="true"></RadzenTextBox>
+    </RadzenColumn>
+</RadzenRow>
 
-                    <RadzenColumn>
-                        <RadzenText>Erstelldatum</RadzenText>
-                        <RadzenStack Orientation="Orientation.Vertical" >
-                            <RadzenStack>
-                                <RadzenTextBox Name="Erstellt am" Value="@ToDoItem.CreationDate.ToString()" ReadOnly="true"></RadzenTextBox>
-                            </RadzenStack>
-                        </RadzenStack>
-                    </RadzenColumn>
+<RadzenRow JustifyContent="@justifyContent" Gap="@gap" RowGap="@gap">
+    <RadzenColumn>
+        <RadzenText>Enddatum</RadzenText>
+    </RadzenColumn>
+    <RadzenColumn>
+        <RadzenTextBox Name="Beenden am" Value="@ToDoItem.DueDate.ToString()" ReadOnly="true"></RadzenTextBox>
+    </RadzenColumn>
+</RadzenRow>
 
-                    <RadzenColumn>
-                        <RadzenText>Enddatum</RadzenText>
-                        <RadzenStack Orientation="Orientation.Vertical" >
-                            <RadzenStack>
-                                <RadzenTextBox Name="Beenden am" Value="@ToDoItem.DueDate.ToString()" ReadOnly="true"></RadzenTextBox>
-                            </RadzenStack>
-                        </RadzenStack>
-                    </RadzenColumn>
+<RadzenRow JustifyContent="@justifyContent" Gap="@gap" RowGap="@gap">
+    <RadzenColumn>
+        <RadzenText>Kategorie</RadzenText>
+    </RadzenColumn>
+    <RadzenColumn>
+        <RadzenTextBox Name="Kategorie" @bind-Value="@ToDoItem.Category" ReadOnly="false"></RadzenTextBox>
+    </RadzenColumn>
+</RadzenRow>
 
-                    <RadzenColumn>
-                        <RadzenText>Kategorie</RadzenText>
-                        <RadzenStack Orientation="Orientation.Vertical" >
-                            <RadzenStack>
-                                <RadzenTextBox Name="Kategorie" @bind-Value="@ToDoItem.Category" ReadOnly="false"></RadzenTextBox>
-                            </RadzenStack>
-                        </RadzenStack>
-                    </RadzenColumn>
+<RadzenRow JustifyContent="@justifyContent" Gap="@gap" RowGap="@gap">
+    <RadzenColumn>
+        <RadzenText>Ersteller</RadzenText>
+    </RadzenColumn>
+    <RadzenColumn>
+        <RadzenTextBox Name="Erstell von" @bind-Value="@ToDoItem.Owner" ReadOnly="false"></RadzenTextBox>
+    </RadzenColumn>
+</RadzenRow>
 
-                    <RadzenColumn>
-                        <RadzenText>Ersteller</RadzenText>
-                        <RadzenStack Orientation="Orientation.Vertical" >
-                            <RadzenStack>
-                                <RadzenTextBox Name="Erstell von" @bind-Value="@ToDoItem.Owner" ReadOnly="false"></RadzenTextBox>
-                            </RadzenStack>
-                        </RadzenStack>
-                    </RadzenColumn>
-                </RadzenRow>
+<RadzenRow>
+    <RadzenColumn>
+        <RadzenText>Beschreibung</RadzenText>
+    </RadzenColumn>
+    <RadzenColumn>
+        <RadzenTextArea Name="Beschreibung" @bind-Value="@ToDoItem.Description" ReadOnly="false"></RadzenTextArea>
+    </RadzenColumn>
+</RadzenRow>
 
-                <RadzenRow>
-                    <RadzenColumn>
-                        <RadzenText>Beschreibung</RadzenText>
-                        <RadzenStack Orientation="Orientation.Horizontal">
-                            <RadzenStack>
-                                <RadzenTextArea Name="Beschreibung" @bind-Value="@ToDoItem.Description" ReadOnly="false"></RadzenTextArea>
-                            </RadzenStack>
-                        </RadzenStack>
-                    </RadzenColumn>
-                </RadzenRow>
-
-                <RadzenStack>
-                    <RadzenButton Click="@((args) =>SaveItem())" Variant="Variant.Flat" Text="Speichern" Style="width: 120px" />
-                    <RadzenButton Click="@((args) => dialogService.Close(true))" Variant="Variant.Flat" Text="Abbrechen" Style="width: 120px" />
-                </RadzenStack>
-            </RadzenStack>
-        </RadzenStack>
-</div>
+<RadzenStack>
+    <RadzenRow>
+        <RadzenColumn>
+            <RadzenButton Click="@((args) =>SaveItem())" Variant="Variant.Flat" Text="Speichern" Style="width: 120px" />
+        </RadzenColumn>
+        <RadzenColumn>
+            <RadzenButton Click="@((args) => dialogService.Close(true))" Variant="Variant.Flat" Text="Abbrechen" Style="width: 120px" />
+        </RadzenColumn>
+    </RadzenRow>
+</RadzenStack>
 
 @code {
     [Parameter]
     [EditorRequired]
     public ToDoItem ToDoItem { get; set; }
 
+    JustifyContent justifyContent = JustifyContent.Normal;
+    string gap = "1rem";
+
     private async Task SaveItem()
     {
         DbContext.ToDoItems.Add(ToDoItem);
         await DbContext.SaveChangesAsync();
-        await InvokeAsync(StateHasChanged);
 
         dialogService.Close(true);
     }
