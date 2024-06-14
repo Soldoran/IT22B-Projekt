@@ -17,7 +17,7 @@ else
 
 }
 
-<RadzenRow JustifyContent="@justifyContent" Gap="@gap" RowGap="@gap">
+<RadzenRow JustifyContent="@justifyContent" Gap="@gap">
     <RadzenColumn>
         <RadzenText>Titel</RadzenText>
     </RadzenColumn>
@@ -25,8 +25,8 @@ else
         <RadzenTextBox Name="Titel" @bind-Value="@ToDoItem.Title" ReadOnly="false" />
     </RadzenColumn>
 </RadzenRow>
-
-<RadzenRow JustifyContent="@justifyContent" Gap="@gap" RowGap="@gap">
+<br />
+<RadzenRow JustifyContent="@justifyContent" Gap="@gap">
     <RadzenColumn>
         <RadzenText>To Dino ID</RadzenText>
     </RadzenColumn>
@@ -34,26 +34,26 @@ else
         <RadzenTextBox Name="To Dino ID" Value="@ToDoItem.Id.ToString()" ReadOnly="true">Test</RadzenTextBox>
     </RadzenColumn>
 </RadzenRow>
-
-<RadzenRow JustifyContent="@justifyContent" Gap="@gap" RowGap="@gap">
+<br />
+<RadzenRow JustifyContent="@justifyContent" Gap="@gap">
     <RadzenColumn>
         <RadzenText>Erstelldatum</RadzenText>
     </RadzenColumn>
     <RadzenColumn>
-        <RadzenTextBox Name="Erstellt am" Value="@ToDoItem.CreationDate.ToString()" ReadOnly="true"></RadzenTextBox>
+        <RadzenDatePicker @bind-Value=@ToDoItem.CreationDate ReadOnly=true Name="RadzenDatePickerBindValue" DateFormat="MM/dd/yyyy" ShowCalendarWeek />
     </RadzenColumn>
 </RadzenRow>
-
-<RadzenRow JustifyContent="@justifyContent" Gap="@gap" RowGap="@gap">
+<br />
+<RadzenRow JustifyContent="@justifyContent" Gap="@gap">
     <RadzenColumn>
         <RadzenText>Enddatum</RadzenText>
     </RadzenColumn>
     <RadzenColumn>
-        <RadzenTextBox Name="Beenden am" Value="@ToDoItem.DueDate.ToString()" ReadOnly="true"></RadzenTextBox>
+        <RadzenDatePicker @bind-Value=@ToDoItem.DueDate Name="RadzenDatePickerBindValue" DateFormat="MM/dd/yyyy" ShowCalendarWeek />
     </RadzenColumn>
 </RadzenRow>
-
-<RadzenRow JustifyContent="@justifyContent" Gap="@gap" RowGap="@gap">
+<br />
+<RadzenRow JustifyContent="@justifyContent" Gap="@gap">
     <RadzenColumn>
         <RadzenText>Kategorie</RadzenText>
     </RadzenColumn>
@@ -61,8 +61,8 @@ else
         <RadzenTextBox Name="Kategorie" @bind-Value="@ToDoItem.Category" ReadOnly="false"></RadzenTextBox>
     </RadzenColumn>
 </RadzenRow>
-
-<RadzenRow JustifyContent="@justifyContent" Gap="@gap" RowGap="@gap">
+<br />
+<RadzenRow JustifyContent="@justifyContent" Gap="@gap">
     <RadzenColumn>
         <RadzenText>Ersteller</RadzenText>
     </RadzenColumn>
@@ -70,7 +70,7 @@ else
         <RadzenTextBox Name="Erstell von" @bind-Value="@ToDoItem.Owner" ReadOnly="false"></RadzenTextBox>
     </RadzenColumn>
 </RadzenRow>
-
+<br />
 <RadzenRow>
     <RadzenColumn>
         <RadzenText>Beschreibung</RadzenText>
@@ -79,7 +79,7 @@ else
         <RadzenTextArea Name="Beschreibung" @bind-Value="@ToDoItem.Description" ReadOnly="false"></RadzenTextArea>
     </RadzenColumn>
 </RadzenRow>
-
+<br />
 <RadzenStack>
     <RadzenRow>
         <RadzenColumn>
@@ -99,7 +99,7 @@ else
     public ToDoItem ToDoItem { get; set; }
 
     JustifyContent justifyContent = JustifyContent.Normal;
-    string gap = "1rem";
+    string gap = "1em";
 
     private async Task SaveItem()
     {

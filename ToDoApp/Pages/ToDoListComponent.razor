@@ -14,10 +14,31 @@
                              Drop="OnDrop">
         <ChildContent>
             <div class="left-container">
-                <RadzenDropZone Value="Status.NotStarted" class="column not-started" Style="flex: 1; gap: 1rem;">
-                    <ChildContent>
-                        <RadzenText Text="Offen" TextStyle="TextStyle.DisplayH6" Style="text-align:center;" />
-                        @foreach (ToDoItem item in data.Where(i => i.Status == Status.NotStarted))
+                <div style="position: relative;">
+                    <RadzenDropZone Value="Status.NotStarted" class="column not-started" Style="flex: 1; gap: 1rem;">
+                        <ChildContent>
+                            <RadzenText Text="Offen" TextStyle="TextStyle.DisplayH6" Style="text-align:center;" />
+                            @foreach (ToDoItem item in data.Where(i => i.Status == Status.NotStarted))
+                            {
+                                <RadzenCard Style="margin: 1rem; cursor: grab;" @key="item.Id" hidden="true">
+                                    <div class="task-content">
+                                        <strong>@item.Title</strong>
+                                        <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Secondary" Click="@(args => EditItem(item))" Style="margin-left: 1rem;" />
+                                    </div>
+                                </RadzenCard>
+                            }
+                        </ChildContent>
+                        <Footer>
+                            <div style="position: absolute; bottom: 1em;">
+                                <RadzenButton Text="Neuer Task" ButtonStyle="ButtonStyle.Secondary" Click="NewToDoItem" />
+                            </div>
+                        </Footer>
+                    </RadzenDropZone>
+                </div>
+                <div>
+                    <RadzenDropZone Value="Status.Started" class="column started" Style="flex: 1; gap: 1rem; min-width:fit-content;">
+                        <RadzenText Text="Angefangen" TextStyle="TextStyle.DisplayH6" Style="text-align:center;" />
+                        @foreach (ToDoItem item in data.Where(i => i.Status == Status.Started))
                         {
                             <RadzenCard Style="margin: 1rem; cursor: grab;" @key="item.Id" hidden="true">
                                 <div class="task-content">
@@ -26,26 +47,8 @@
                                 </div>
                             </RadzenCard>
                         }
-                    </ChildContent>
-                    <Footer>
-                        <div>
-                            <RadzenButton Text="Neuer Task" ButtonStyle="ButtonStyle.Secondary" Click="NewToDoItem" />
-                        </div>
-                    </Footer>
-                </RadzenDropZone>
-
-                <RadzenDropZone Value="Status.Started" class="column started" Style="flex: 1; gap: 1rem; min-width:fit-content;">
-                    <RadzenText Text="Angefangen" TextStyle="TextStyle.DisplayH6" Style="text-align:center;" />
-                    @foreach (ToDoItem item in data.Where(i => i.Status == Status.Started))
-                    {
-                        <RadzenCard Style="margin: 1rem; cursor: grab;" @key="item.Id" hidden="true">
-                            <div class="task-content">
-                                <strong>@item.Title</strong>
-                                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Secondary" Click="@(args => EditItem(item))" Style="margin-left: 1rem;" />
-                            </div>
-                        </RadzenCard>
-                    }
-                </RadzenDropZone>
+                    </RadzenDropZone>
+                </div>
             </div>
 
             <div class="right-container">
