@@ -1,51 +1,38 @@
 # IT22B-Projekt
 Lernfeld 8 Projekt
 
+## Gruppe
+* Leo M.
+* Jonathan G.
+* Sebastian K.
+
 ## Beschreibung
 ### To-Do App
-Verwaltung von To-Dos. Getrennt in Privat und Gewerblich. Nutzerverwaltung. "Ticket". An diesem sind Tasks. Datum.
-Nutzer => Datenbank
+Dieses Projekt wurde von Sebastian K., Leo M., und Jonathan G. für die Klausurersatzleistung im LF8 (Fachinformatiker) am BBZ Rendsburg absolviert.
+Das Thema sowie die Umsetzung war frei gestellt.
 
-### Objekte
-  * Userclass
-  * ToDoList
-  * ToDoItem
+Wir haben uns für eine Mischung aus Simpler To-Do Applikation und Ticket-System entschieden.
 
+Geplante Features (Projektstart):
+- [x] Verwalten einer To-Do Liste
+- [x] Anlegen eines neuen To-Do Items
+- [x] Bearbeiten eines To-Do-Items
+- [x] Verschieben von To-Do-Items in verschiedene Stati
+- [x] Löschen von To-Do-Items im gleichen Interface
+- [x] To-Do-Items (genauere) Beschreibungen zulassen
+- [x] Speichern der Daten in einer Datenbank
+- [x] Dokumentation nach IHk Kiel Vorgaben (Freiwillige Zusatzleistung)
+- [ ] Nutzerverwaltung (Anlegen neuer Nutzer / Einloggen als Nutzer)
+- [ ] To-Do-Items an Nutzer binden
+- [ ] Teilen von To-Do-Items
+- [ ] Mehrere Listen pro Nutzer
 
-## Gruppe
-* Leo
-* Jonathan
-* Sebastian
-
-## Verwendete Sprachen
-* C#
-* TSQL
-* TeX
-* HTML
-
-## Auschecken des Projektes
-
+## Auschecken des Projektes (Git muss Lokal installiert sein)
 `https://github.com/Soldoran/IT22B-Projekt.git`
 
 ## Generieren der Datenbank mit Visual Studio
-
-Wenn kein Migrations-Ordner mit Dateien vorhanden ist:
-
+(Optional =) Wenn kein Migrations-Ordner mit Dateien vorhanden ist:
 `Add-Migration init`
 
 Um die Datenbank erstellen zu lassen:
-
 `Update-Database`
-
-## Git in der Eingabeaufforderung
-
-|Befehl|Beschreibung|
-|------|------------|
-| git clone [URL des Repositories] | Kopiert das Repository in den aktuellen Ordner (!Der Ordner muss leer sein!) |
-| git add [Dateiname] oder . oder --all | Fügt eine Datei, alle Änderungen im Verzeichnis oder alle Änderungen (Rekursiv) zu einem Commit hinzu |
-| git commit -m "Lorem Ipsum Dolor .." | Führt einen Commit aus und erstellt eine Commit-Message |
-| git push | Pushed den erstellten Commit in den aktuellen Branch des Repositories |
-| git checkout [Branchname] | Wechselt den Branch auf den gewünschten |
-| git branch [Branchname] | Erstellt einen neuen Branch, ausgehend vom aktuellen |
-| git merge [Origin-Branchname] | Merged Änderungen des angegebenen Branches in den eigenen |
-| git pull [Origin-Branchname] [Branchname] | Zieht die Änderungen eines anderen Branchen in den eigenen |
