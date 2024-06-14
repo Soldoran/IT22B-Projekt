@@ -11,38 +11,71 @@
                              ItemSelector="@ItemSelector"
                              ItemRender="@OnItemRender"
                              CanDrop="@CanDrop"
-                             Drop="OnDrop" class="board">
+                             Drop="OnDrop">
         <ChildContent>
             <div class="left-container">
-                <RadzenDropZone Value="Status.NotStarted" class="column not-started" Style="flex: 1; gap: 1rem;">
+                <div style="position: relative;">
+                    <RadzenDropZone Value="Status.NotStarted" class="column not-started" Style="flex: 1; gap: 1rem;">
                         <ChildContent>
-                            <RadzenText Text="Not started" TextStyle="TextStyle.Subtitle2" />
+                            <RadzenText Text="Offen" TextStyle="TextStyle.DisplayH6" Style="text-align:center;" />
+                            @foreach (ToDoItem item in data.Where(i => i.Status == Status.NotStarted))
+                            {
+                                <RadzenCard Style="margin: 1rem; cursor: grab;" @key="item.Id" hidden="true">
+                                    <div class="task-content">
+                                        <strong>@item.Title</strong>
+                                        <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Secondary" Click="@(args => EditItem(item))" Style="margin-left: 1rem;" />
+                                    </div>
+                                </RadzenCard>
+                            }
                         </ChildContent>
                         <Footer>
-                            <div>
-                                <RadzenButton Text=@($"Neuer Task") ButtonStyle="ButtonStyle.Secondary" Click=@NewToDoItem />
+                            <div style="position: absolute; bottom: 1em;">
+                                <RadzenButton Text="Neuer Task" ButtonStyle="ButtonStyle.Secondary" Click="NewToDoItem" />
                             </div>
                         </Footer>
                     </RadzenDropZone>
-
+                </div>
+                <div>
                     <RadzenDropZone Value="Status.Started" class="column started" Style="flex: 1; gap: 1rem; min-width:fit-content;">
-                        <RadzenText Text="Started" TextStyle="TextStyle.Subtitle2" />
+                        <RadzenText Text="Angefangen" TextStyle="TextStyle.DisplayH6" Style="text-align:center;" />
+                        @foreach (ToDoItem item in data.Where(i => i.Status == Status.Started))
+                        {
+                            <RadzenCard Style="margin: 1rem; cursor: grab;" @key="item.Id" hidden="true">
+                                <div class="task-content">
+                                    <strong>@item.Title</strong>
+                                    <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Secondary" Click="@(args => EditItem(item))" Style="margin-left: 1rem;" />
+                                </div>
+                            </RadzenCard>
+                        }
                     </RadzenDropZone>
+                </div>
             </div>
 
             <div class="right-container">
-                    <RadzenDropZone Value="Status.Completed" class="column completed" Style="flex: 1; gap: 1rem; min-width:fit-content;">
-                        <RadzenText Text="Completed" TextStyle="TextStyle.Subtitle2" />
-                    </RadzenDropZone>
+                <RadzenDropZone Value="Status.Completed" class="column completed" Style="flex: 1; gap: 1rem; min-width:fit-content;">
+                    <RadzenText Text="Fertig" TextStyle="TextStyle.DisplayH6" Style="text-align:center;" />
+                    @foreach (ToDoItem item in data.Where(i => i.Status == Status.Completed))
+                    {
+                        <RadzenCard Style="margin: 1rem; cursor: grab;" @key="item.Id" hidden="true">
+                            <div class="task-content">
+                                <strong>@item.Title</strong>
+                                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Secondary" Click="@(args => EditItem(item))" Style="margin-left: 1rem;" />
+                            </div>
+                        </RadzenCard>
+                    }
+                </RadzenDropZone>
 
                 <RadzenDropZone Value="Status.Deleted" class="column delete" Style="flex: 1; gap: 1rem; min-width:fit-content;">
-                        <RadzenText Text="Drop here to delete" TextStyle="TextStyle.Subtitle2" />
-                    </RadzenDropZone>
+                    <RadzenText Text="Zum Löschen hier hin ziehen" TextStyle="TextStyle.DisplayH6" Style="text-align:center;" />
+                </RadzenDropZone>
             </div>
         </ChildContent>
 
         <Template>
-            <strong>@context.Title</strong>
+            <div class="task-content">
+                <strong>@context.Title</strong>
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Secondary" Click="@(args => EditItem(context))" Style="margin-left: 1rem;" />
+            </div>
         </Template>
 
     </RadzenDropZoneContainer>
@@ -64,9 +97,31 @@
     public async Task NewToDoItem()
     {
         ToDoItem newItem = new();
-        await DialogService.OpenAsync<ToDoItemModal>("Neuer Task",
+        newItem.Title = "Neuer Task";
+        var result = await DialogService.OpenAsync<ToDoItemModal>(newItem.Title,
                new Dictionary<string, object>() { { "ToDoItem", newItem } },
-               new DialogOptions() { Width = "auto", Height = "auto", Resizable = false, Draggable = false });
+               new DialogOptions() { Width = "auto", Height = "auto", Resizable = true, Draggable = false, Style = "modal-background" });
+
+        if (result == true)
+        {
+            data = await DbContext.ToDoItems.ToListAsync();
+        }
+
+        StateHasChanged();
+    }
+
+    public async Task EditItem(ToDoItem item)
+    {
+        var result = await DialogService.OpenAsync<ToDoItemModal>(item.Title,
+               new Dictionary<string, object>() { { "ToDoItem", item } },
+               new DialogOptions() { Width = "auto", Height = "auto", Resizable = true, Draggable = false, Style = "modal-background" });
+
+        if (result == true)
+        {
+            data = await DbContext.ToDoItems.ToListAsync();
+        }
+
+        StateHasChanged();
     }
 
     void OnItemRender(RadzenDropZoneItemRenderEventArgs<ToDoItem> args)
