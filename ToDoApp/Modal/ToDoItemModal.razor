@@ -8,6 +8,15 @@
 @inject Radzen.TooltipService tooltipService
 @inject ApplicationDbContext DbContext
 
+@if (ToDoItem.Id > 0)
+{
+    isNewItem = false;
+}
+else
+{
+
+}
+
 <RadzenRow JustifyContent="@justifyContent" Gap="@gap" RowGap="@gap">
     <RadzenColumn>
         <RadzenText>Titel</RadzenText>
@@ -83,6 +92,8 @@
 </RadzenStack>
 
 @code {
+    bool isNewItem = true;
+
     [Parameter]
     [EditorRequired]
     public ToDoItem ToDoItem { get; set; }
@@ -92,9 +103,15 @@
 
     private async Task SaveItem()
     {
-        DbContext.ToDoItems.Add(ToDoItem);
+        if (isNewItem)
+        {
+            DbContext.ToDoItems.Add(ToDoItem);
+        }
+        else
+        {
+            DbContext.ToDoItems.Update(ToDoItem);
+        }
         await DbContext.SaveChangesAsync();
-
         dialogService.Close(true);
     }
 }

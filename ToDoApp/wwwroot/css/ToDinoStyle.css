@@ -13,6 +13,7 @@
     gap: 20px !important;
     padding: 20px !important;
     justify-content: space-between;
+    position: relative;
 }
 
 /* Column styles */
@@ -20,10 +21,9 @@
     background-color: #f9f9f9;
     border-radius: 8px;
     padding: 10px !important;
-    width: 200px;
+    width: auto !important;
     min-height: 400px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
+    display: in-flex;
     flex-direction: column;
     min-width: fit-content;
     overflow: scroll;
@@ -43,6 +43,7 @@
 
     .column.delete {
         background-color: #ffe0e0; /* Light red */
+        width: 250px;
     }
 
     .column h2 {
@@ -96,22 +97,18 @@
 
 .left-container {
     display: flex;
+    position: absolute;
     flex-direction: column;
     gap: 1rem;
-    position: relative;
-    top: -40px;
-    right: 50px;
-    width: auto;
+    left: -25px;
 }
 
 .right-container {
     display: flex;
+    position: absolute;
     flex-direction: column;
     gap: 1rem;
-    position: absolute;
-    top: 80px;
-    right: 50px;
-    width: auto;
+    right: 0px; /* Angeben um die Elemente am rechten Hand anzuzeigen, weil der Parent-Div die Position: relative hat */
     align-items: flex-end; /* Stellt sicher, dass die Container am rechten Rand ausgerichtet sind */
 }
 
@@ -122,7 +119,6 @@
     position: absolute;
     top: 80px;
     right: 750px;
-    width: auto !important;
     align-items: center; /* Stellt sicher, dass die Container am rechten Rand ausgerichtet sind */
     background-color: moccasin;
     border-style: solid !important;
