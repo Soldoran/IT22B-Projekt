@@ -98,16 +98,30 @@
     {
         ToDoItem newItem = new();
         newItem.Title = "Neuer Task";
-        await DialogService.OpenAsync<ToDoItemModal>(newItem.Title,
+        var result = await DialogService.OpenAsync<ToDoItemModal>(newItem.Title,
                new Dictionary<string, object>() { { "ToDoItem", newItem } },
                new DialogOptions() { Width = "auto", Height = "auto", Resizable = true, Draggable = false, Style = "modal-background" });
+
+        if (result == true)
+        {
+            data = await DbContext.ToDoItems.ToListAsync();
+        }
+
+        StateHasChanged();
     }
 
     public async Task EditItem(ToDoItem item)
     {
-        await DialogService.OpenAsync<ToDoItemModal>(item.Title,
+        var result = await DialogService.OpenAsync<ToDoItemModal>(item.Title,
                new Dictionary<string, object>() { { "ToDoItem", item } },
                new DialogOptions() { Width = "auto", Height = "auto", Resizable = true, Draggable = false, Style = "modal-background" });
+
+        if (result == true)
+        {
+            data = await DbContext.ToDoItems.ToListAsync();
+        }
+
+        StateHasChanged();
     }
 
     void OnItemRender(RadzenDropZoneItemRenderEventArgs<ToDoItem> args)
