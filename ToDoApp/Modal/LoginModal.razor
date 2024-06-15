@@ -1,0 +1,93 @@
+﻿@page "/login"
+@using ToDoApp.Klassen
+@using Microsoft.EntityFrameworkCore
+@inject Radzen.DialogService dialogService
+@inject Radzen.NotificationService notificationService
+@inject Radzen.ContextMenuService contextMenuService
+@inject Radzen.NotificationService radzenNotification
+@inject Radzen.TooltipService tooltipService
+@inject ApplicationDbContext DbContext
+@inject Userclass Userclass
+
+<RadzenRow JustifyContent="@justifyContent" Gap="@gap">
+    <RadzenColumn>
+        <RadzenText>Nutzername</RadzenText>
+    </RadzenColumn>
+    <RadzenColumn>
+        <RadzenTextBox Name="UserName" @bind-Value="@Userclass.Username" ReadOnly="false" />
+    </RadzenColumn>
+</RadzenRow>
+<br />
+<RadzenRow JustifyContent="@justifyContent" Gap="@gap">
+    <RadzenColumn>
+        <RadzenText>Passwort</RadzenText>
+    </RadzenColumn>
+    <RadzenColumn>
+        <RadzenPassword Name="UserPassword" @bind-Value="@Userclass.Password" ReadOnly="false" />
+    </RadzenColumn>
+</RadzenRow>
+<br />
+<RadzenStack>
+    <RadzenRow>
+        <RadzenColumn>
+            <RadzenButton Click="@((args) =>LoginTask())" Variant="Variant.Flat" Text="Login" Style="width: auto" />
+        </RadzenColumn>
+        <RadzenColumn>
+            <RadzenButton Click="@((args) => RegisterAsync())" Variant="Variant.Flat" Text="Registrieren" Style="width: auto" />
+        </RadzenColumn>
+    </RadzenRow>
+    <RadzenText Text="@loginMessage"></RadzenText>
+</RadzenStack>
+
+@code {
+    [Parameter]
+    public Userclass User { get; set; }
+
+    string loginMessage = "";
+    string gap = "1em";
+    JustifyContent justifyContent = JustifyContent.Normal;
+
+    private async Task RegisterAsync()
+    {
+        Userclass? existingUser = DbContext.Userclasses.Where(dbData => dbData.Username == Userclass.Username).FirstOrDefault();
+
+        if (existingUser == null)
+        {
+            DbContext.Userclasses.Add(Userclass);
+            loginMessage = "User created!";
+            await DbContext.SaveChangesAsync();
+
+            // Instant Login new User
+            await LoginTask();
+        }
+        else
+        {
+            loginMessage = $"There is already a User with the Name  \"{Userclass.Username}\"";
+        }
+    }
+
+    private Task LoginTask()
+    {
+        Userclass? existingUser = DbContext.Userclasses.Where(dbData => dbData.Username == Userclass.Username).FirstOrDefault();
+
+        if (existingUser != null)
+        {
+            if (existingUser.Password == Userclass.Password)
+            {
+                Userclass.isLoggedIn = true;
+                dialogService.Close(true);
+            }
+            else
+            {
+                // Passwort ist falsch
+            }
+        }
+        else
+        {
+            // Kein Nutzer gefunden
+        }
+        loginMessage = "Invalid username or password.";
+
+        return Task.CompletedTask;
+    }
+}
