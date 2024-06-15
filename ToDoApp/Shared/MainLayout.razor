@@ -2,6 +2,7 @@
 @using ToDoApp.Pages;
 @inherits LayoutComponentBase
 @inject Userclass Userclass
+@inject NavigationManager NavigationManager;
 
 <PageTitle>To-Dino</PageTitle>
 
@@ -26,6 +27,7 @@
             Userclass.Username = "";
             Userclass.Password = "";
             Userclass.isLoggedIn = false;
+            NavigationManager.NavigateTo("/", true);
         }
         <div>
             <article class="content px-4">

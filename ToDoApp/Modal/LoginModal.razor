@@ -8,6 +8,7 @@
 @inject Radzen.TooltipService tooltipService
 @inject ApplicationDbContext DbContext
 @inject Userclass Userclass
+@inject NavigationManager NavigationManager;
 
 <RadzenRow JustifyContent="@justifyContent" Gap="@gap">
     <RadzenColumn>
@@ -76,6 +77,7 @@
             {
                 Userclass.isLoggedIn = true;
                 dialogService.Close(true);
+                NavigationManager.NavigateTo("/", true);
             }
             else
             {
