@@ -24,5 +24,8 @@ namespace ToDoApp.Klassen
         [Required]
         [MaxLength(50)]
         public string Password { get; set; }
+
+        [NotMapped] // Wird von der Datenbank ignoriert, da nicht wichtig
+        public bool isLoggedIn { get; set; } = false;
     }
 }
