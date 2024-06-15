@@ -9,6 +9,9 @@
 @inject ApplicationDbContext DbContext
 @inject Userclass Userclass
 
+@*
+    Wir überprüfen beim Aufrufen des Dialoges ob es sich um ein bereits existierenden Task handelt, oder um einen der gerade angelegt wird
+*@
 @if (ToDoItem.Id > 0)
 {
     isNewItem = false;
@@ -93,15 +96,26 @@ else
 </RadzenStack>
 
 @code {
+    #region Member
     bool isNewItem = true;
+    JustifyContent justifyContent = JustifyContent.Normal;
+    string gap = "1em";
+    #endregion
 
+    #region Parameter
     [Parameter]
     [EditorRequired]
     public ToDoItem ToDoItem { get; set; }
+    #endregion
 
-    JustifyContent justifyContent = JustifyContent.Normal;
-    string gap = "1em";
-
+    #region Tasks
+    #region SaveItem
+    /// <summary>
+    /// Wenn ein neues Item entsteht, wird es in die Datenbank aufgenommen
+    /// Wenn es ein bestehndes Item ist, wird das Item in der Datenbank aktualisiert
+    /// Filtern wir nicht, würden wir beim neu Anlegen eines bestehnden Items versuchen, die gleiche ID zu vergeben und laufen damit in eine Exception
+    /// </summary>
+    /// <returns></returns>
     private async Task SaveItem()
     {
         if (isNewItem)
@@ -116,4 +130,7 @@ else
         await DbContext.SaveChangesAsync();
         dialogService.Close(true);
     }
+    #endregion
+
+    #endregion
 }

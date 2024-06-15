@@ -7,11 +7,19 @@
 @inject ApplicationDbContext DbContext
 @inject Userclass Userclass
 
+@* Durch den Singleton "Userclass" prüfen wir, ob ein Nutzer angemeldet ist, wenn dem nicht der Fall ist, wird die Anmeldemaske angezeigt *@
 @if (!Userclass.isLoggedIn)
 {
     ShowLoginModal();
 }
 
+@*
+Die Hauptseite der Anwendung
+RadzenDropZoneContainer => Eine Komponente, welche als Unterelemte (ChildContent) RadzenDropZones akzeptiert
+RadzenDropZones => Die eigentlichen Dropzonen für die einzelnen Items, welche UI-Komponenten als Unterlemente akzeptieren, wie zum Beispiel RadzenText
+RadzenCard => Mit diesen werden hier die ToDoItems in den Dropzonen definiert. Wegen Renderfehlern (Items werden Doppelt gelistet) wird diese Komponente versteckt
+                              Sie ist jedoch nötig, um den Bearbeitungs-Button hinzuzufügen
+*@
 <div class="board">
     <RadzenDropZoneContainer TItem="ToDoItem" Data="data"
                              ItemSelector="@ItemSelector"
@@ -77,6 +85,10 @@
             </div>
         </ChildContent>
 
+        @*
+            Stellt die Items in den Dropzones dar, mit denen wir am Ende interargieren
+            Hier sagen wir, was als Titel der Karte angezeigt werden soll
+        *@
         <Template>
             <div class="task-content">
                 <strong>@context.Title</strong>
@@ -88,18 +100,35 @@
 </div>
 
 @code {
-    IList<ToDoItem>? data;
 
-    // Filter items by zone value
+    #region Member
+    // Theoretisch könnten wir hier auch mit dem Datatype List arbeiten, wären dann jedoch auch auf Listen beschränkt.
+    // So könnten hier Listen, aber auch Arrays zum Einsatz kommen, was das Programm flexibler in der Gestaltung macht
+    IList<ToDoItem>? data;
+    #endregion
+
+    #region Delegaten
+    // Ein Delegate ist ein Typ, der einen Verweis auf eine Methode speichert. Sie werden verwendet um Methoden als Parameter zu übergeben und
+    // Rückruffunktionen zu definieren
+    // Sie sind besonders nützlich für Ereignisbehandlung und Situationsabhängige Methodenaufrufe
+
+    // Filtert die Items nach ihren Zonen-Werten
     Func<ToDoItem, RadzenDropZone<ToDoItem>, bool> ItemSelector = (item, zone) => item.Status == (Status)zone.Value && item.Status != Status.Deleted;
 
     Func<RadzenDropZoneItemEventArgs<ToDoItem>, bool> CanDrop = request =>
     {
-        // Allow item drop only in the same zone, in "Deleted" zone or in the next/previous zone.
+        // Erlaubt Items nur auf der gleichen Zone, oder den "Nachbar-Zonen" zu landen
         return request.FromZone == request.ToZone || (Status)request.ToZone.Value == Status.Deleted ||
                Math.Abs((int)request.Item.Status - (int)request.ToZone.Value) == 1;
     };
+    #endregion
 
+    #region Tasks
+    #region NewToDoItem
+    /// <summary>
+    /// Erstellt ein neues ToDoItem und ruft den entsprechenden Dialog auf. Wenn der Dialog bestätigt wurde, wird das Item für den Nutzer in der Datenbank hinterlegt.
+    /// </summary>
+    /// <returns></returns>
     public async Task NewToDoItem()
     {
         ToDoItem newItem = new ToDoItem() { Owner = Userclass.Username };
@@ -115,7 +144,14 @@
 
         StateHasChanged();
     }
+    #endregion
 
+    #region EditItem
+    /// <summary>
+    /// Ruft den Item-Dialog für das Item auf um Änderungen vorzunehmen. Wenn der Dialog bestätigt wurde, wird das Item für den Nutzer in der Datenbank aktualisiert.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
     public async Task EditItem(ToDoItem item)
     {
         var result = await DialogService.OpenAsync<ToDoItemModal>(item.Title,
@@ -129,7 +165,13 @@
 
         StateHasChanged();
     }
+    #endregion
 
+    #region ShowLoginModal
+    /// <summary>
+    /// Zeigt die Login-Maske an.
+    /// </summary>
+    /// <returns></returns>
     public async Task ShowLoginModal()
     {
         var result = await DialogService.OpenAsync<LoginModal>("Anmeldung",
@@ -138,15 +180,14 @@
 
         StateHasChanged();
     }
+    #endregion
 
-    void OnItemRender(RadzenDropZoneItemRenderEventArgs<ToDoItem> args)
-    {
-        args.Attributes["class"] = "task";
-
-        // Do not render item if deleted
-        args.Visible = args.Item.Status != Status.Deleted;
-    }
-
+    #region OnDrop
+    /// <summary>
+    /// Wertet aus, in Welcher Zone das Item abgelegt wird. Wenn sich die Zone ändert, werden die Änderungen in der Datenbank aktualisiert.
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
     async Task OnDrop(RadzenDropZoneItemEventArgs<ToDoItem> args)
     {
         if (args == null)
@@ -171,12 +212,38 @@
         await DbContext.SaveChangesAsync();
         await InvokeAsync(StateHasChanged);
     }
+    #endregion
 
+    #endregion
+
+    #region Methods
+    #region OnItemRender
+    /// <summary>
+    /// Entscheidet welche ToDoItems von der Anwendung gerendert werden. Wenn der Status "Status.Deleted" ist, wird das Item nicht angezeigt.
+    /// </summary>
+    /// <param name="args"></param>
+    void OnItemRender(RadzenDropZoneItemRenderEventArgs<ToDoItem> args)
+    {
+        args.Attributes["class"] = "task";
+
+        // Do not render item if deleted
+        args.Visible = args.Item.Status != Status.Deleted;
+    }
+    #endregion
+
+    #region OnInitialized
+    /// <summary>
+    /// Wird beim Aufrufen der Seite ausgeführt.
+    /// </summary>
     protected override void OnInitialized()
     {
         data = GetDbItems();
     }
 
+    /// <summary>
+    /// Lädt Daten von ToDoItems aus der angebundenen Datenbank und gibt diese als Liste zurück.
+    /// </summary>
+    /// <returns>Eine Liste vom Typ "ToDoItem"</returns>
     private List<ToDoItem> GetDbItems()
     {
         List<ToDoItem> list = new();
@@ -192,7 +259,18 @@
 
         return list;
     }
+    #endregion
 
+    #endregion
+
+    #region Status-Enum
+    /// <summary>
+    /// Status der ToDoItems
+    /// NotStarted (0)
+    /// Started (1)
+    /// Completed (2)
+    /// Deleted (3)
+    /// </summary>
     public enum Status
     {
         NotStarted,
@@ -200,4 +278,5 @@
         Completed,
         Deleted
     }
+    #endregion
 }
