@@ -7,6 +7,7 @@
 @inject Radzen.NotificationService radzenNotification
 @inject Radzen.TooltipService tooltipService
 @inject ApplicationDbContext DbContext
+@inject Userclass Userclass
 
 @if (ToDoItem.Id > 0)
 {
@@ -64,10 +65,10 @@ else
 <br />
 <RadzenRow JustifyContent="@justifyContent" Gap="@gap">
     <RadzenColumn>
-        <RadzenText>Ersteller</RadzenText>
+        <RadzenText>Erstellt von</RadzenText>
     </RadzenColumn>
     <RadzenColumn>
-        <RadzenTextBox Name="Erstell von" @bind-Value="@ToDoItem.Owner" ReadOnly="false"></RadzenTextBox>
+        <RadzenTextBox Name="Erstellt von" @bind-Value="@ToDoItem.Owner" ReadOnly="true"></RadzenTextBox>
     </RadzenColumn>
 </RadzenRow>
 <br />
@@ -105,6 +106,7 @@ else
     {
         if (isNewItem)
         {
+            ToDoItem.Owner = Userclass.Username;
             DbContext.ToDoItems.Add(ToDoItem);
         }
         else

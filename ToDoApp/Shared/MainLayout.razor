@@ -1,5 +1,8 @@
-﻿@using ToDoApp.Pages;
+﻿@using ToDoApp.Klassen
+@using ToDoApp.Pages;
 @inherits LayoutComponentBase
+@inject Userclass Userclass
+@inject NavigationManager NavigationManager;
 
 <PageTitle>To-Dino</PageTitle>
 
@@ -12,20 +15,19 @@
     <main class="page-background-class">
         <div class="top-row px-4">
             <div class="m-3">
-                <button type="button" @onclick="() => showLoginPrompt = true">Login</button>
+                <p>Eingeloggt als: @Userclass.Username</p>
             </div>
             <div class="m-3">
-                <button type="button" @onclick="() => showRegisterPrompt = true">Register</button>
+                <button type="button" @onclick="() => Logout = true">Logout</button>
             </div>
         </div>
 
-        @if (showLoginPrompt)
+        @if (Logout)
         {
-            <LoginComponent />
-        }
-        @if (showRegisterPrompt)
-        {
-            <RegisterComponent />
+            Userclass.Username = "";
+            Userclass.Password = "";
+            Userclass.isLoggedIn = false;
+            NavigationManager.NavigateTo("/", true);
         }
         <div>
             <article class="content px-4">
@@ -37,6 +39,5 @@
 </div>
 
 @code {
-    public bool showLoginPrompt;
-    public bool showRegisterPrompt;
+    public bool Logout;
 }

@@ -1,12 +1,4 @@
-﻿/* Basic reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-/* Container for the entire board */
+﻿/* Container for the entire board */
 .board {
     display: flex !important;
     flex-direction: row !important;
@@ -22,12 +14,12 @@
     background-color: #f9f9f9;
     border-radius: 8px;
     padding: 10px !important;
-    width: auto !important;
     min-height: 400px;
     display: in-flex;
     flex-direction: column;
-    min-width: fit-content;
     overflow: scroll;
+    min-width: 280px !important;
+    margin: 5px;
 }
 
     .column.not-started {
@@ -44,7 +36,6 @@
 
     .column.delete {
         background-color: #ffe0e0; /* Light red */
-        width: 250px;
     }
 
     .column h2 {
@@ -97,7 +88,6 @@
 }
 
 .left-container {
-    display: flex;
     position: absolute;
     flex-direction: column;
     gap: 1rem;
@@ -105,7 +95,6 @@
 }
 
 .right-container {
-    display: flex;
     position: absolute;
     flex-direction: column;
     gap: 1rem;
@@ -120,14 +109,13 @@
     position: absolute;
     top: 80px;
     right: 750px;
-    align-items: center; /* Stellt sicher, dass die Container am rechten Rand ausgerichtet sind */
+    align-items: center; /* Stellt sicher, dass der Container am rechten Rand ausgerichtet ist */
     background-color: moccasin;
     border-style: solid !important;
 }
 
 .modal-container {
     display: inline-table !important;
-    width: fit-content !important;
     background-size: auto !important;
     overflow: auto !important;
 }

@@ -5,6 +5,12 @@
 @using ToDoApp.Modal
 @inject DialogService DialogService
 @inject ApplicationDbContext DbContext
+@inject Userclass Userclass
+
+@if (!Userclass.isLoggedIn)
+{
+    ShowLoginModal();
+}
 
 <div class="board">
     <RadzenDropZoneContainer TItem="ToDoItem" Data="data"
@@ -96,7 +102,7 @@
 
     public async Task NewToDoItem()
     {
-        ToDoItem newItem = new();
+        ToDoItem newItem = new ToDoItem() { Owner = Userclass.Username };
         newItem.Title = "Neuer Task";
         var result = await DialogService.OpenAsync<ToDoItemModal>(newItem.Title,
                new Dictionary<string, object>() { { "ToDoItem", newItem } },
@@ -104,7 +110,7 @@
 
         if (result == true)
         {
-            data = await DbContext.ToDoItems.ToListAsync();
+            data = await DbContext.ToDoItems.Where(dbData => dbData.Owner == Userclass.Username).ToListAsync();
         }
 
         StateHasChanged();
@@ -118,8 +124,17 @@
 
         if (result == true)
         {
-            data = await DbContext.ToDoItems.ToListAsync();
+            data = await DbContext.ToDoItems.Where(dbData => dbData.Owner == Userclass.Username).ToListAsync();
         }
+
+        StateHasChanged();
+    }
+
+    public async Task ShowLoginModal()
+    {
+        var result = await DialogService.OpenAsync<LoginModal>("Anmeldung",
+               new Dictionary<string, object>() { { "User", Userclass } },
+               new DialogOptions() { Width = "auto", Height = "auto", Resizable = true, Draggable = false, Style = "modal-background" });
 
         StateHasChanged();
     }
@@ -168,7 +183,7 @@
 
         if (DbContext.ToDoItems.Any<ToDoItem>())
         {
-            list = DbContext.ToDoItems.ToList();
+            list = DbContext.ToDoItems.Where(dbData => dbData.Owner == Userclass.Username).ToList();
         }
         else
         {
