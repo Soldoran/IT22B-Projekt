@@ -224,13 +224,13 @@ parent={},%
 
 \glsdefs@newdocentry{<mockupbeschreibung>}%
 {%
-name={Debugger},%
-sort={Debugger},%
+name={Mockup},%
+sort={Mockup},%
 type={main},%
-first={Debugger},%
-firstplural={Debuggers},%
-text={Debugger},%
-plural={Debuggers},%
+first={Mockup},%
+firstplural={Mockups},%
+text={Mockup},%
+plural={Mockups},%
 description={Vorläufiger Entwurf einer geplanten Benutzeroberfläche},%
 descriptionplural={Vorläufiger Entwurf einer geplanten Benutzeroberfläche},%
 symbol={\relax },%
