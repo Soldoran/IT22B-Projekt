@@ -1,4 +1,7 @@
-﻿<script src="_content/Radzen.Blazor/Radzen.Blazor.js?v=@(typeof(Radzen.Colors).Assembly.GetName().Version)"></script>
+﻿@* Wird für die Radzen.Blazor Komponentenbilbiothek gebraucht *@
+<script src="_content/Radzen.Blazor/Radzen.Blazor.js?v=@(typeof(Radzen.Colors).Assembly.GetName().Version)"></script>
+
+@* Automatisch im Projekt vorhanden, keine Änderungen vorgenommen *@
 <Router AppAssembly="@typeof(App).Assembly" @rendermode="InteractiveServer">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />

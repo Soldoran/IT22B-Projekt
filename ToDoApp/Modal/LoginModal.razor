@@ -41,13 +41,25 @@
 </RadzenStack>
 
 @code {
+    #region Parameter
     [Parameter]
     public Userclass User { get; set; }
+    #endregion
 
+    #region Member
     string loginMessage = "";
     string gap = "1em";
     JustifyContent justifyContent = JustifyContent.Normal;
+    #endregion
 
+    #region Tasks
+    #region RegisterAsync
+    /// <summary>
+    /// Asynchroner Tasks, welcher prüft ob ein Nutzername bereits in der Datenbank vorhanden ist.
+    /// Ist der Nutzername noch Verfügbar, wird der Nutzer mit dem Passwort in der Datenbank angelegt und der Nutzer wird eingeloggt
+    /// Anderfalls wird der Nutzer darauf hingewiesen, dass der Nutzer bereits existiert.
+    /// </summary>
+    /// <returns></returns>
     private async Task RegisterAsync()
     {
         Userclass? existingUser = DbContext.Userclasses.Where(dbData => dbData.Username == Userclass.Username).FirstOrDefault();
@@ -63,10 +75,18 @@
         }
         else
         {
-            loginMessage = $"There is already a User with the Name  \"{Userclass.Username}\"";
+            loginMessage = $"Es existiert bereits ein Nutzer mit dem Namen:  \"{Userclass.Username}\"";
         }
     }
+    #endregion
 
+    #region LoginTask
+    /// <summary>
+    /// Überprüft ob ein Nutzer in der Datenbank hinterlegt ist und ob das Passwort mit dem in der Datenbank übereinstimmt.
+    /// Wenn ja, wird der Nutzer angemeldet.
+    /// Wenn entweder dass Passwort falsch ist oder der Nutzer nicht existiert, wird dem Nutzer die Nachricht "Username oder Passwort sind falsch" angezeigt.
+    /// </summary>
+    /// <returns></returns>
     private Task LoginTask()
     {
         Userclass? existingUser = DbContext.Userclasses.Where(dbData => dbData.Username == Userclass.Username).FirstOrDefault();
@@ -88,8 +108,11 @@
         {
             // Kein Nutzer gefunden
         }
-        loginMessage = "Invalid username or password.";
+        loginMessage = "Username oder Passwort sind falsch";
 
         return Task.CompletedTask;
     }
+    #endregion
+
+    #endregion
 }

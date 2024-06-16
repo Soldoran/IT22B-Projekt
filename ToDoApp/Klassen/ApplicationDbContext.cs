@@ -19,7 +19,6 @@ namespace ToDoApp.Klassen
         #region DbSets
         // Definieren die Tabellen, welche auf Basis der angegebenen Klassen erstellt werden sollen
         public DbSet<Userclass> Userclasses { get; set; }
-        public DbSet<ToDoList> ToDoLists { get; set; }
         public DbSet<ToDoItem> ToDoItems { get; set; }
         #endregion
 

@@ -22,10 +22,16 @@ Geplante Features (Projektstart):
 - [x] To-Do-Items (genauere) Beschreibungen zulassen
 - [x] Speichern der Daten in einer Datenbank
 - [x] Dokumentation nach IHk Kiel Vorgaben (Freiwillige Zusatzleistung)
-- [x] Nutzerverwaltung (Anlegen neuer Nutzer / Einloggen als Nutzer)
+- [x] Nutzerverwaltung* (Anlegen neuer Nutzer / Einloggen als Nutzer)
 - [x] To-Do-Items an Nutzer binden
 - [ ] Teilen von To-Do-Items (Optional)
 - [ ] Mehrere Listen pro Nutzer (Optional)
+
+### *Hinweis
+Hierbei handelt es sich um ein Prototypen, der während eines Schulprojektes entstanden ist.
+Um es einfacher und damit verständlicher zu halten, wurde sich dazu entschieden die Anfallenden Nutzerdaten
+in Klartextform in der lokalen Datenbank zu schreiben! Das ist natürlich Datenschutztechnisch nicht konform
+und soll nicht als Anregung dazu dienen, so fahrlässig mit echten Nutzerdaten umzugehen!
 
 ## Auschecken des Projektes (Git muss Lokal installiert sein)
 `https://github.com/Soldoran/IT22B-Projekt.git`
