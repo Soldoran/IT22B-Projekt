@@ -31,19 +31,6 @@ namespace ToDoApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ToDoLists",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ListName = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ToDoLists", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Userclasses",
                 columns: table => new
                 {
@@ -63,9 +50,6 @@ namespace ToDoApp.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ToDoItems");
-
-            migrationBuilder.DropTable(
-                name: "ToDoLists");
 
             migrationBuilder.DropTable(
                 name: "Userclasses");

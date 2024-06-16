@@ -6,5 +6,12 @@
 }
 
 <component type="typeof(App)" render-mode="ServerPrerendered" />
+
+@* Das Skript ist wichtig für die Radzen Komponenten*@
 <script src="_content/Radzen.Blazor/Radzen.Blazor.js?v=4.29.1"></script>
+
+@* 
+    Damit unsere eigenen CSS-Klassen von Blazor richtig geladen werden, weisen wir eine "Version" zu, 
+    so soll Blazor im Hintergrund nach Updates suchen, was dazu führt, dass die Styles richtig geladen werden
+*@
 <link href="~/css/ToDinoStyle.css?version=0.1" rel="stylesheet" />
